@@ -1,0 +1,28 @@
+.dealerButton {
+    position: absolute;
+    background-color: rgb(114, 100, 100);
+    border: 2px solid black;
+    width: 45px;
+    height: 25px;
+    left: 25%;
+    margin-right: auto;
+    text-align: center;
+    border-radius: 45%;
+    font-weight: bold;
+    box-shadow: inset -3px 1px rgba(47, 41, 41, 0.8);
+}
+
+.p1dealer {
+    bottom: 25%;
+}
+
+.p2dealer {
+    top: 25%;
+}
+
+@media(min-width:730px) {
+    .dealerButton {
+        width: 50px;
+        height: 30px;
+    }
+}

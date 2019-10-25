@@ -1,0 +1,46 @@
+.operatingButtons {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 1;
+    width: 110px;
+}
+
+.operatingButtons button {
+    height: 35px;
+    width: 110px;
+    border: solid 2px rgb(255, 255, 255);
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: rgb(168, 43, 43);
+}
+
+.operatingButtons button:disabled {
+    background-color: gray;
+    color: black;
+}
+
+@media (min-width:730px) {
+    .operatingButtons {
+        width: 150px;
+    }
+
+    .operatingButtons button {
+        height: 45px;
+        width: 150px;
+    }
+}
+
+@media (min-width:1024px) {
+    .operatingButtons {
+        position: absolute;
+        top: 130px;
+        right: 100px;
+        z-index: 1;
+    }
+
+    .operatingButtons button {
+        height: 55px;
+        width: 150px;
+    }
+}

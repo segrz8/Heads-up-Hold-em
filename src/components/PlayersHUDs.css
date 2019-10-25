@@ -1,0 +1,136 @@
+.player1 {
+    position: absolute;
+    width: 150px;
+    height: 70px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.player2 {
+    position: absolute;
+    width: 150px;
+    height: 70px;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.player1 .card1 {
+    position: absolute;
+    background-color: white;
+    width: 50px;
+    height: 70px;
+    top: 0;
+    right: 50px;
+    border: 3px solid black;
+}
+
+.player1 .card2 {
+    position: absolute;
+    background-color: white;
+    width: 50px;
+    height: 70px;
+    top: 0;
+    right: 0;
+    border: 3px solid black;
+}
+
+.player2 .card1 {
+    position: absolute;
+    background-color: white;
+    width: 50px;
+    height: 70px;
+    top: 0;
+    left: 0;
+    border: 3px solid black;
+}
+
+.player2 .card2 {
+    position: absolute;
+    background-color: white;
+    width: 50px;
+    height: 70px;
+    top: 0;
+    left: 50px;
+    border: 3px solid black;
+}
+
+.red {
+    color: rgb(214, 37, 37);
+}
+
+.stack1 {
+    position: absolute;
+    background-color: white;
+    width: 50px;
+    height: 40px;
+    bottom: 0;
+    left: 0;
+    border: 3px solid black;
+    border-radius: 5px;
+    text-align: center;
+    background-color: rgb(223, 214, 189);
+    font-weight: bold;
+}
+
+.stack2 {
+    position: absolute;
+    background-color: white;
+    width: 50px;
+    height: 40px;
+    top: 0;
+    right: 0;
+    border: 3px solid black;
+    border-radius: 5px;
+    text-align: center;
+    background-color: rgb(223, 214, 189);
+    font-weight: bold;
+}
+
+@media(min-width:730px) {
+
+    .player1,
+    .player2 {
+        width: 180px;
+        height: 90px;
+    }
+
+    .player1 .card1 {
+        width: 60px;
+        height: 90px;
+        left: 60px;
+    }
+
+    .player1 .card2 {
+        width: 60px;
+        height: 90px;
+    }
+
+    .player2 .card1 {
+        width: 60px;
+        height: 90px;
+    }
+
+    .player2 .card2 {
+        width: 60px;
+        height: 90px;
+        left: 60px;
+    }
+
+    .stack1 {
+        width: 60px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .stack2 {
+        width: 60px;
+        height: 50px;
+        font-size: 20px;
+    }
+}

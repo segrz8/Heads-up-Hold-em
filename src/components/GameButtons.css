@@ -1,0 +1,44 @@
+.gameButtons {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    z-index: 1;
+    width: 110px;
+}
+
+.gameButtons button {
+    height: 35px;
+    width: 110px;
+    border: solid 2px rgb(255, 255, 255);
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: rgb(168, 43, 43)
+}
+
+.gameButtons button:disabled {
+    background-color: gray;
+    color: black;
+}
+
+@media (min-width:730px) {
+    .gameButtons {
+        width: 150px;
+    }
+
+    .gameButtons button {
+        height: 45px;
+        width: 150px;
+    }
+}
+
+@media (min-width:1024px) {
+    .gameButtons {
+        bottom: 130px;
+        right: 100px;
+    }
+
+    .gameButtons button {
+        height: 55px;
+        width: 150px;
+    }
+}

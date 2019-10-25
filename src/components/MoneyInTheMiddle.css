@@ -1,0 +1,136 @@
+.money {
+    position: absolute;
+    color: white;
+}
+
+.pot {
+    position: absolute;
+    top: 75px;
+    left: 30vw;
+    width: 200px;
+}
+
+.player1bet {
+    position: absolute;
+    top: 55vh;
+    left: 55vw;
+    width: 100px;
+}
+
+.player2bet {
+    position: absolute;
+    top: 25vh;
+    left: 55vw;
+    width: 100px;
+}
+
+.player1chips {
+    position: absolute;
+    top: 150vh;
+    left: 40vw;
+    width: 10px;
+    height: 10px;
+    transition: .6s;
+    color: gold;
+    font-size: 26px;
+}
+
+.player1chipsInTheMiddle {
+    top: 55vh;
+    left: 63vw;
+}
+
+.player2chips {
+    position: absolute;
+    top: -50vh;
+    left: 40vw;
+    width: 10px;
+    height: 10px;
+    transition: .6s;
+    color: gold;
+    font-size: 26px;
+}
+
+.player2chipsInTheMiddle {
+    top: 25vh;
+    left: 63vw;
+}
+
+.potChips {
+    position: absolute;
+    top: 50vh;
+    left: -50vw;
+    width: 10px;
+    height: 10px;
+    transition: .6s;
+    color: gold;
+    font-size: 26px;
+}
+
+.potChipsOnTheTable {
+    top: 75px;
+    left: 48vw;
+    width: 10px;
+    height: 10px;
+}
+
+@media (min-width:730px) {
+    .money {
+        font-size: 24px;
+    }
+
+    i {
+        font-size: 30px;
+    }
+
+    .pot {
+        top: 95px;
+    }
+
+    .potChipsOnTheTable {
+        top: 95px;
+    }
+}
+
+@media (min-width:1024px) {
+
+    .player1bet {
+        top: 280px;
+        left: 490px;
+    }
+
+    .player2bet {
+        top: 145px;
+        left: 490px;
+    }
+
+    .player1chipsInTheMiddle {
+        top: 280px;
+        left: 570px;
+    }
+
+    .player2chipsInTheMiddle {
+        top: 145px;
+        left: 570px;
+    }
+
+    .pot {
+        position: absolute;
+        left: 320px;
+        top: 105px;
+    }
+
+    .potChipsOnTheTable {
+        position: absolute;
+        left: 450px;
+        top: 105px;
+    }
+
+    .money {
+        width: 750px;
+        height: 450px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%)
+    }
+}

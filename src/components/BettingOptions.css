@@ -1,0 +1,64 @@
+.bet {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    bottom: 5px;
+    left: 5px;
+    height: 70px;
+    width: 150px;
+    background-color: rgb(73, 73, 73);
+    border: 2px solid white;
+    margin-top: auto;
+    background-color: #fff;
+}
+
+.inputAndAllIn {
+    display: flex;
+    flex: 1;
+}
+
+.sliderAndPlusMinus {
+    display: flex;
+    flex: 1;
+}
+
+.bet button {
+    border: solid 2px rgb(255, 255, 255);
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: rgb(168, 43, 43)
+}
+
+.allIn {
+    flex: 1;
+}
+
+.betMinus,
+.betPlus {
+    flex: 1;
+}
+
+.bet button:disabled {
+    background-color: gray;
+    color: black;
+}
+
+@media(min-width:730px) {
+    .bet {
+        height: 95px;
+        width: 200px;
+    }
+}
+
+@media(min-width:1024px) {
+    .bet {
+        height: 95px;
+        width: 200px;
+        bottom: 130px;
+        left: 100px;
+    }
+}
+
+h1 {
+    color: blanchedalmond;
+}

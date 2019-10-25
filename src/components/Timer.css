@@ -1,0 +1,12 @@
+.timer {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: white;
+    font-size: 18px;
+    background-color: black;
+    z-index: 1;
+    border: 2px solid rgb(177, 55, 55);
+    padding: 8px;
+    /* animation-name: example;animation-duration: 4s; */
+}
