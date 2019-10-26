@@ -9,6 +9,11 @@ import GameButtons from './GameButtons';
 import DealerButton from './DealerButton';
 import BettingOptions from './BettingOptions';
 
+import hearts from '../suitsImg/hearts.png'
+import spades from '../suitsImg/spades.png'
+import diamonds from '../suitsImg/diamonds.png'
+import clubs from '../suitsImg/clubs.png'
+
 const startMoney = 3000
 // const timeBeforeFold = 20000
 
@@ -1151,6 +1156,13 @@ class App extends React.Component {
 		} else pot.classList.add('potChipsOnTheTable');
 	}
 
+	determineSuit = (card) => {
+		if (card === 'hearts') return hearts
+		else if (card === 'spades') return spades
+		else if (card === 'diamonds') return diamonds
+		else if (card === 'clubs') return clubs
+	}
+
 	render() {
 		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, disabledShowdown, smallBlindAmount, bet, bigBlindAmount, disabledDeal, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river, } = this.state
 
@@ -1176,6 +1188,7 @@ class App extends React.Component {
 							player2card2={player2card2}
 
 							renderCard={this.renderCard}
+							determineSuit={this.determineSuit}
 						// animateCard1={this.animateCard1}
 						/>
 						<MoneyInTheMiddle
@@ -1191,6 +1204,7 @@ class App extends React.Component {
 							river={river}
 
 							renderCard={this.renderCard}
+							determineSuit={this.determineSuit}
 						/>
 						<DealerButton
 							dealerButtonPosition={dealerButtonPosition}

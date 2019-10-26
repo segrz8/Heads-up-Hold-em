@@ -92,6 +92,16 @@
     font-weight: bold;
 }
 
+.suit {
+    /* background-image: url('../suitsImg/heart.png'); */
+    height: 28px;
+    background-repeat: no-repeat;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 55%;
+}
+
 @media(min-width:730px) {
 
     .player1,
@@ -132,5 +142,15 @@
         width: 60px;
         height: 50px;
         font-size: 20px;
+    }
+
+    .suit {
+        /* background-image: url('../suitsImg/heart.png'); */
+        height: 28px;
+        background-repeat: no-repeat;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
     }
 }
