@@ -42,7 +42,7 @@
 
 .player2 .card1 {
     position: absolute;
-    background-color: white;
+    /* background-color: white; */
     width: 50px;
     height: 70px;
     top: 0;
@@ -52,7 +52,7 @@
 
 .player2 .card2 {
     position: absolute;
-    background-color: white;
+    /* background-color: white; */
     width: 50px;
     height: 70px;
     top: 0;

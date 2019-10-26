@@ -20,58 +20,58 @@ const startMoney = 3000
 class App extends React.Component {
 	state = {
 		deck: [
-			{ valueFont: 'A', suitFont: '3', value: 14, suit: 'hearts' },
-			{ valueFont: 'K', suitFont: '3', value: 13, suit: 'hearts' },
-			{ valueFont: 'Q', suitFont: '3', value: 12, suit: 'hearts' },
-			{ valueFont: 'J', suitFont: '3', value: 11, suit: 'hearts' },
-			{ valueFont: '10', suitFont: '3', value: 10, suit: 'hearts' },
-			{ valueFont: '9', suitFont: '3', value: 9, suit: 'hearts' },
-			{ valueFont: '8', suitFont: '3', value: 8, suit: 'hearts' },
-			{ valueFont: '7', suitFont: '3', value: 7, suit: 'hearts' },
-			{ valueFont: '6', suitFont: '3', value: 6, suit: 'hearts' },
-			{ valueFont: '5', suitFont: '3', value: 5, suit: 'hearts' },
-			{ valueFont: '4', suitFont: '3', value: 4, suit: 'hearts' },
-			{ valueFont: '3', suitFont: '3', value: 3, suit: 'hearts' },
-			{ valueFont: '2', suitFont: '3', value: 2, suit: 'hearts' },
-			{ valueFont: 'A', suitFont: 'S', value: 14, suit: 'spades' },
-			{ valueFont: 'K', suitFont: 'S', value: 13, suit: 'spades' },
-			{ valueFont: 'Q', suitFont: 'S', value: 12, suit: 'spades' },
-			{ valueFont: 'J', suitFont: 'S', value: 11, suit: 'spades' },
-			{ valueFont: '10', suitFont: 'S', value: 10, suit: 'spades' },
-			{ valueFont: '9', suitFont: 'S', value: 9, suit: 'spades' },
-			{ valueFont: '8', suitFont: 'S', value: 8, suit: 'spades' },
-			{ valueFont: '7', suitFont: 'S', value: 7, suit: 'spades' },
-			{ valueFont: '6', suitFont: 'S', value: 6, suit: 'spades' },
-			{ valueFont: '5', suitFont: 'S', value: 5, suit: 'spades' },
-			{ valueFont: '4', suitFont: 'S', value: 4, suit: 'spades' },
-			{ valueFont: '3', suitFont: 'S', value: 3, suit: 'spades' },
-			{ valueFont: '2', suitFont: 'S', value: 2, suit: 'spades' },
-			{ valueFont: 'A', suitFont: '4', value: 14, suit: 'diamonds' },
-			{ valueFont: 'K', suitFont: '4', value: 13, suit: 'diamonds' },
-			{ valueFont: 'Q', suitFont: '4', value: 12, suit: 'diamonds' },
-			{ valueFont: 'J', suitFont: '4', value: 11, suit: 'diamonds' },
-			{ valueFont: '10', suitFont: '4', value: 10, suit: 'diamonds' },
-			{ valueFont: '9', suitFont: '4', value: 9, suit: 'diamonds' },
-			{ valueFont: '8', suitFont: '4', value: 8, suit: 'diamonds' },
-			{ valueFont: '7', suitFont: '4', value: 7, suit: 'diamonds' },
-			{ valueFont: '6', suitFont: '4', value: 6, suit: 'diamonds' },
-			{ valueFont: '5', suitFont: '4', value: 5, suit: 'diamonds' },
-			{ valueFont: '4', suitFont: '4', value: 4, suit: 'diamonds' },
-			{ valueFont: '3', suitFont: '4', value: 3, suit: 'diamonds' },
-			{ valueFont: '2', suitFont: '4', value: 2, suit: 'diamonds' },
-			{ valueFont: 'A', suitFont: 'C', value: 14, suit: 'clubs' },
-			{ valueFont: 'K', suitFont: 'C', value: 13, suit: 'clubs' },
-			{ valueFont: 'Q', suitFont: 'C', value: 12, suit: 'clubs' },
-			{ valueFont: 'J', suitFont: 'C', value: 11, suit: 'clubs' },
-			{ valueFont: '10', suitFont: 'C', value: 10, suit: 'clubs' },
-			{ valueFont: '9', suitFont: 'C', value: 9, suit: 'clubs' },
-			{ valueFont: '8', suitFont: 'C', value: 8, suit: 'clubs' },
-			{ valueFont: '7', suitFont: 'C', value: 7, suit: 'clubs' },
-			{ valueFont: '6', suitFont: 'C', value: 6, suit: 'clubs' },
-			{ valueFont: '5', suitFont: 'C', value: 5, suit: 'clubs' },
-			{ valueFont: '4', suitFont: 'C', value: 4, suit: 'clubs' },
-			{ valueFont: '3', suitFont: 'C', value: 3, suit: 'clubs' },
-			{ valueFont: '2', suitFont: 'C', value: 2, suit: 'clubs' },
+			{ valueFont: 'A', value: 14, suit: 'hearts' },
+			{ valueFont: 'K', value: 13, suit: 'hearts' },
+			{ valueFont: 'Q', value: 12, suit: 'hearts' },
+			{ valueFont: 'J', value: 11, suit: 'hearts' },
+			{ valueFont: '10', value: 10, suit: 'hearts' },
+			{ valueFont: '9', value: 9, suit: 'hearts' },
+			{ valueFont: '8', value: 8, suit: 'hearts' },
+			{ valueFont: '7', value: 7, suit: 'hearts' },
+			{ valueFont: '6', value: 6, suit: 'hearts' },
+			{ valueFont: '5', value: 5, suit: 'hearts' },
+			{ valueFont: '4', value: 4, suit: 'hearts' },
+			{ valueFont: '3', value: 3, suit: 'hearts' },
+			{ valueFont: '2', value: 2, suit: 'hearts' },
+			{ valueFont: 'A', value: 14, suit: 'spades' },
+			{ valueFont: 'K', value: 13, suit: 'spades' },
+			{ valueFont: 'Q', value: 12, suit: 'spades' },
+			{ valueFont: 'J', value: 11, suit: 'spades' },
+			{ valueFont: '10', value: 10, suit: 'spades' },
+			{ valueFont: '9', value: 9, suit: 'spades' },
+			{ valueFont: '8', value: 8, suit: 'spades' },
+			{ valueFont: '7', value: 7, suit: 'spades' },
+			{ valueFont: '6', value: 6, suit: 'spades' },
+			{ valueFont: '5', value: 5, suit: 'spades' },
+			{ valueFont: '4', value: 4, suit: 'spades' },
+			{ valueFont: '3', value: 3, suit: 'spades' },
+			{ valueFont: '2', value: 2, suit: 'spades' },
+			{ valueFont: 'A', value: 14, suit: 'diamonds' },
+			{ valueFont: 'K', value: 13, suit: 'diamonds' },
+			{ valueFont: 'Q', value: 12, suit: 'diamonds' },
+			{ valueFont: 'J', value: 11, suit: 'diamonds' },
+			{ valueFont: '10', value: 10, suit: 'diamonds' },
+			{ valueFont: '9', value: 9, suit: 'diamonds' },
+			{ valueFont: '8', value: 8, suit: 'diamonds' },
+			{ valueFont: '7', value: 7, suit: 'diamonds' },
+			{ valueFont: '6', value: 6, suit: 'diamonds' },
+			{ valueFont: '5', value: 5, suit: 'diamonds' },
+			{ valueFont: '4', value: 4, suit: 'diamonds' },
+			{ valueFont: '3', value: 3, suit: 'diamonds' },
+			{ valueFont: '2', value: 2, suit: 'diamonds' },
+			{ valueFont: 'A', value: 14, suit: 'clubs' },
+			{ valueFont: 'K', value: 13, suit: 'clubs' },
+			{ valueFont: 'Q', value: 12, suit: 'clubs' },
+			{ valueFont: 'J', value: 11, suit: 'clubs' },
+			{ valueFont: '10', value: 10, suit: 'clubs' },
+			{ valueFont: '9', value: 9, suit: 'clubs' },
+			{ valueFont: '8', value: 8, suit: 'clubs' },
+			{ valueFont: '7', value: 7, suit: 'clubs' },
+			{ valueFont: '6', value: 6, suit: 'clubs' },
+			{ valueFont: '5', value: 5, suit: 'clubs' },
+			{ valueFont: '4', value: 4, suit: 'clubs' },
+			{ valueFont: '3', value: 3, suit: 'clubs' },
+			{ valueFont: '2', value: 2, suit: 'clubs' },
 		],
 		shuffledDeck: null,
 		player1card1: null,
@@ -100,6 +100,7 @@ class App extends React.Component {
 		// timerActive: false,
 		// timeToAct: 10,
 		dealCount: 1,
+		showPlayer2cards: false,
 	}
 
 	dealCards = () => {
@@ -156,6 +157,7 @@ class App extends React.Component {
 			disabled: dealerButtonPosition ? false : true,
 			disabledDeal: !disabledDeal,
 			disabledPlayer2: dealerButtonPosition ? true : !disabledPlayer2,
+			showPlayer2cards: false,
 			// timerActive: dealerButtonPosition ? this.player1TurnStart() : this.player2turn(),
 		})
 		// if (dealerButtonPosition) {
@@ -737,6 +739,7 @@ class App extends React.Component {
 						disabledShowdown: !disabledShowdown,
 						disabled: true,
 						disabledPlayer2: true,
+						showPlayer2cards: true,
 					});
 				}
 				console.log('Check and go to next street')
@@ -795,6 +798,7 @@ class App extends React.Component {
 			this.setState({
 				disabledShowdown: !disabledShowdown,
 				disabledPlayer2: true,
+				showPlayer2cards: true,
 			});
 
 			console.log('allin call')
@@ -946,6 +950,7 @@ class App extends React.Component {
 					disabledShowdown: !disabledShowdown,
 					disabled: true,
 					disabledPlayer2: true,
+					showPlayer2cards: true,
 				});
 			}
 
@@ -1164,7 +1169,7 @@ class App extends React.Component {
 	}
 
 	render() {
-		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, disabledShowdown, smallBlindAmount, bet, bigBlindAmount, disabledDeal, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river, } = this.state
+		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, disabledShowdown, smallBlindAmount, bet, bigBlindAmount, disabledDeal, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river, showPlayer2cards } = this.state
 
 		return (
 			<div className="wrapAndRotateInfo">
@@ -1186,6 +1191,7 @@ class App extends React.Component {
 							player2money={player2money}
 							player2card1={player2card1}
 							player2card2={player2card2}
+							showPlayer2cards={showPlayer2cards}
 
 							renderCard={this.renderCard}
 							determineSuit={this.determineSuit}

@@ -6,7 +6,7 @@
 .pot {
     position: absolute;
     top: 75px;
-    left: 30vw;
+    left: 50px;
     width: 200px;
 }
 
@@ -68,8 +68,8 @@
 }
 
 .potChipsOnTheTable {
-    top: 75px;
-    left: 48vw;
+    top: 110px;
+    left: 50px;
     width: 10px;
     height: 10px;
 }
@@ -88,7 +88,7 @@
     }
 
     .potChipsOnTheTable {
-        top: 95px;
+        top: 150px;
     }
 }
 

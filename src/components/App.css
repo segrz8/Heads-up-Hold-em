@@ -39,7 +39,7 @@ body {
 button {
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, .7);
     font-family: 'Alegreya', serif;
-    font-size: 17px;
+    font-size: 16px;
     transition: .2s;
 }
 
@@ -69,6 +69,16 @@ button {
     box-shadow: inset 0 3px 10px rgba(175, 157, 57, 0.7);
     font-family: 'Alegreya', serif;
     background-color: white;
+    border: 3px solid black;
+    flex-grow: 1;
+    max-width: 50px;
+}
+
+.cardBack {
+    border-radius: 7px;
+    box-shadow: inset 0 3px 10px rgba(175, 157, 57, 0.7);
+    font-family: 'Alegreya', serif;
+    background-color: rgb(92, 27, 27);
     border: 3px solid black;
     flex-grow: 1;
     max-width: 50px;
@@ -110,6 +120,16 @@ button {
         border-radius: 9px;
         box-shadow: inset 0 3px 15px rgba(175, 157, 57, 0.7);
         border: 3px solid black;
+        max-width: 60px;
+    }
+
+    .cardBack {
+        border-radius: 9px;
+        box-shadow: inset 0 3px 10px rgba(175, 157, 57, 0.7);
+        font-family: 'Alegreya', serif;
+        background-color: rgb(92, 27, 27);
+        border: 3px solid black;
+        flex-grow: 1;
         max-width: 60px;
     }
 
