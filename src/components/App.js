@@ -8,6 +8,7 @@ import MoneyInTheMiddle from './MoneyInTheMiddle';
 import GameButtons from './GameButtons';
 import DealerButton from './DealerButton';
 import BettingOptions from './BettingOptions';
+import ActionInfo from './ActionInfo';
 
 import hearts from '../suitsImg/hearts.png'
 import spades from '../suitsImg/spades.png'
@@ -102,6 +103,7 @@ class App extends React.Component {
 		// timeToAct: 10,
 		dealCount: 1,
 		showPlayer2cards: false,
+		actionInfo: '',
 	}
 
 	dealCards = () => {
@@ -400,12 +402,14 @@ class App extends React.Component {
 		if (result === 'player1won') {
 			this.setState({
 				pot: 0,
-				player1money: player1money + pot + player1bet + player2bet
+				player1money: player1money + pot + player1bet + player2bet,
+				actionInfo: 'You win',
 			});
 		} else if (result === 'player2won') {
 			this.setState({
 				pot: 0,
-				player2money: player2money + pot + player1bet + player2bet
+				player2money: player2money + pot + player1bet + player2bet,
+				actionInfo: 'You lose',
 			});
 		} else if (result === 'chop') {
 			const choppedPot = player1bet > player2bet ? (pot + player1bet * 2) / 2 : (pot + player2bet * 2) / 2
@@ -427,6 +431,7 @@ class App extends React.Component {
 					player2money: player2money + choppedPot - player1bet,
 				});
 			}
+			this.setState({ actionInfo: 'Chop', });
 			console.log(choppedPot)
 		}
 		this.setState({
@@ -446,6 +451,10 @@ class App extends React.Component {
 			river: null,
 		});
 		this.animateCallChips('fold')
+
+		setTimeout(() => {
+			this.setState({ actionInfo: '' });
+		}, 3000);
 	}
 
 	evaluateHand = (hand) => {
@@ -1244,11 +1253,14 @@ class App extends React.Component {
 	}
 
 	render() {
-		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, disabledShowdown, smallBlindAmount, bet, bigBlindAmount, disabledDeal, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river, showPlayer2cards } = this.state
+		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, disabledShowdown, smallBlindAmount, bet, bigBlindAmount, disabledDeal, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river, showPlayer2cards, actionInfo } = this.state
 
 		return (
 			<div className="wrapAndRotateInfo">
 				<div className='wrap'>
+					<ActionInfo
+						actionInfo={actionInfo}
+					/>
 					<OperatingButtons
 						dealCards={this.dealCards}
 						player2turn={this.player2turn}
