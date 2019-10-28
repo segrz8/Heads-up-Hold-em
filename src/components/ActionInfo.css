@@ -6,3 +6,17 @@
     left: 5px;
     font-size: 24px;
 }
+
+@media (min-width:730px) {
+    .actionInfo {
+        font-size: 30px;
+    }
+}
+
+@media (min-width:1024px) {
+    .actionInfo {
+        font-size: 36px;
+        top: 130px;
+        left: 100px;
+    }
+}
