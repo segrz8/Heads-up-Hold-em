@@ -105,16 +105,13 @@ class App extends React.Component {
 	}
 
 	dealCards = () => {
-		const { dealerButtonPosition, player1money, player2money, smallBlindAmount, bigBlindAmount, disabledDeal, disabledPlayer2, deck, dealCount } = this.state
+		const { dealerButtonPosition, player1money, player2money, smallBlindAmount, bigBlindAmount, disabledDeal, disabledPlayer2, deck } = this.state
 
-		// Blinds go up every 5 hands
-		if (dealCount % 5 === 0) {
-			this.setState({
-				smallBlindAmount: smallBlindAmount * 2,
-				bigBlindAmount: bigBlindAmount * 2,
-			});
+		// Game over
+		if (player1money === 0 || player2money === 0) {
+			alert('Game Over')
+			return
 		}
-		this.setState({ dealCount: dealCount + 1 });
 
 		if (!dealerButtonPosition) {
 			setTimeout(() => {
@@ -128,14 +125,8 @@ class App extends React.Component {
 			// 	}, 5000);
 		}
 
-		if (player1money === 0 || player2money === 0) {
-			alert('Game Over')
-			return
-		}
-
-		let shuffledDeck = [...deck]
-
 		// Shuffling the deck
+		let shuffledDeck = [...deck]
 
 		for (let i = shuffledDeck.length - 1; i > 0; i--) {
 			let j = Math.floor(Math.random() * (i + 1));
@@ -368,6 +359,7 @@ class App extends React.Component {
 	}
 
 	showCards = () => {
+		const { dealCount, smallBlindAmount, bigBlindAmount } = this.state
 
 		const handOf7player1 = [this.state.player1card1, this.state.player1card2, this.state.flop1, this.state.flop2, this.state.flop3, this.state.turn, this.state.river]
 
@@ -392,6 +384,15 @@ class App extends React.Component {
 		setTimeout(() => {
 			this.dealCards()
 		}, timeBeforePlayer2acts);
+
+		// Blinds go up every 5 hands
+		if (dealCount % 5 === 0) {
+			this.setState({
+				smallBlindAmount: smallBlindAmount * 2,
+				bigBlindAmount: bigBlindAmount * 2,
+			});
+		}
+		this.setState({ dealCount: dealCount + 1 });
 	}
 
 	showdown = (result) => {
@@ -670,7 +671,7 @@ class App extends React.Component {
 	}
 
 	fold = () => {
-		const { player1money, player2money, player1bet, player2bet, disabledDeal, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck } = this.state
+		const { player1money, player2money, player1bet, player2bet, disabledDeal, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, dealCount, smallBlindAmount, bigBlindAmount } = this.state
 		// Fold
 		if (player1bet !== player2bet) {
 			this.setState({
@@ -693,6 +694,15 @@ class App extends React.Component {
 			setTimeout(() => {
 				this.dealCards()
 			}, timeBeforePlayer2acts);
+
+			// Blinds go up every 5 hands
+			if (dealCount % 5 === 0) {
+				this.setState({
+					smallBlindAmount: smallBlindAmount * 2,
+					bigBlindAmount: bigBlindAmount * 2,
+				});
+			}
+			this.setState({ dealCount: dealCount + 1 });
 
 			// Player 1 fold
 			if (player1bet < player2bet) {
