@@ -17,7 +17,7 @@ import clubs from '../suitsImg/clubs.png'
 
 const startMoney = 3000
 // const timeBeforeFold = 20000
-const timeBeforePlayer2acts = 2000
+const timeBeforePlayer2acts = 1500
 
 class App extends React.Component {
 	state = {
@@ -107,7 +107,7 @@ class App extends React.Component {
 	}
 
 	dealCards = () => {
-		const { dealerButtonPosition, player1money, player2money, smallBlindAmount, bigBlindAmount, disabledDeal, disabledPlayer2, deck } = this.state
+		const { dealerButtonPosition, player1money, player2money, smallBlindAmount, bigBlindAmount, disabledPlayer2, deck } = this.state
 
 		// Game over
 		if (player1money === 0 || player2money === 0) {
@@ -149,7 +149,7 @@ class App extends React.Component {
 			player2card1: shuffledDeck[2],
 			player2card2: shuffledDeck[3],
 			disabled: dealerButtonPosition ? false : true,
-			disabledDeal: !disabledDeal,
+			disabledDeal: true,
 			disabledPlayer2: dealerButtonPosition ? true : !disabledPlayer2,
 			showPlayer2cards: false,
 			// timerActive: dealerButtonPosition ? this.player1TurnStart() : this.player2turn(),
@@ -398,7 +398,7 @@ class App extends React.Component {
 	}
 
 	showdown = (result) => {
-		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabledDeal } = this.state
+		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot } = this.state
 		if (result === 'player1won') {
 			this.setState({
 				pot: 0,
@@ -437,7 +437,6 @@ class App extends React.Component {
 		this.setState({
 			player1bet: 0,
 			player2bet: 0,
-			disabledDeal: !disabledDeal,
 			dealerButtonPosition: !dealerButtonPosition,
 			player1card1: null,
 			player1card2: null,
@@ -680,13 +679,12 @@ class App extends React.Component {
 	}
 
 	fold = () => {
-		const { player1money, player2money, player1bet, player2bet, disabledDeal, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, dealCount, smallBlindAmount, bigBlindAmount } = this.state
+		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, dealCount, smallBlindAmount, bigBlindAmount } = this.state
 		// Fold
 		if (player1bet !== player2bet) {
 			this.setState({
 				player1bet: 0,
 				player2bet: 0,
-				disabledDeal: !disabledDeal,
 				dealerButtonPosition: !dealerButtonPosition,
 				player1card1: null,
 				player1card2: null,
