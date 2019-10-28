@@ -16,6 +16,7 @@ import clubs from '../suitsImg/clubs.png'
 
 const startMoney = 3000
 // const timeBeforeFold = 20000
+const timeBeforePlayer2acts = 2000
 
 class App extends React.Component {
 	state = {
@@ -115,17 +116,17 @@ class App extends React.Component {
 		}
 		this.setState({ dealCount: dealCount + 1 });
 
-		// if (!dealerButtonPosition) {
-		// 	setTimeout(() => {
-		// 		this.player2turn()
-		// 	}, 3000);
-		// } else {
-		// 	this.setState({ timerActive: true });
-		// 	setTimeout(() => {
-		// 		this.fold()
-		// 		this.setState({ timerActive: false });
-		// 	}, 5000);
-		// }
+		if (!dealerButtonPosition) {
+			setTimeout(() => {
+				this.player2turn()
+			}, timeBeforePlayer2acts);
+			// } else {
+			// 	this.setState({ timerActive: true });
+			// 	setTimeout(() => {
+			// 		this.fold()
+			// 		this.setState({ timerActive: false });
+			// 	}, 5000);
+		}
 
 		if (player1money === 0 || player2money === 0) {
 			alert('Game Over')
@@ -387,6 +388,10 @@ class App extends React.Component {
 				pot: 0,
 			});
 		}
+
+		setTimeout(() => {
+			this.dealCards()
+		}, timeBeforePlayer2acts);
 	}
 
 	showdown = (result) => {
@@ -665,7 +670,7 @@ class App extends React.Component {
 	}
 
 	fold = () => {
-		const { player1money, player2money, player1bet, player2bet, disabledDeal, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, disabledShowdown } = this.state
+		const { player1money, player2money, player1bet, player2bet, disabledDeal, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck } = this.state
 		// Fold
 		if (player1bet !== player2bet) {
 			this.setState({
@@ -684,6 +689,10 @@ class App extends React.Component {
 				turn: null,
 				river: null,
 			})
+
+			setTimeout(() => {
+				this.dealCards()
+			}, timeBeforePlayer2acts);
 
 			// Player 1 fold
 			if (player1bet < player2bet) {
@@ -734,16 +743,24 @@ class App extends React.Component {
 				this.setState({
 					disabled: !disabled,
 				});
-				if (this.state.stage === 'river') {
-					this.setState({
-						disabledShowdown: !disabledShowdown,
-						disabled: true,
-						disabledPlayer2: true,
-						showPlayer2cards: true,
-					});
-				}
+				// if (this.state.stage === 'river') {
+				// 	this.setState({
+				// 		disabledShowdown: !disabledShowdown,
+				// 		disabled: true,
+				// 		disabledPlayer2: true,
+				// 		showPlayer2cards: true,
+				// 	});
+				// }
 				console.log('Check and go to next street')
 				this.animateCallChips()
+
+				if (dealerButtonPosition && !disabled && stage !== 'river') {
+					setTimeout(() => {
+						this.player2turn()
+					}, timeBeforePlayer2acts);
+					// console.log('w')
+				}
+
 				// Check after limp and go to next street
 			} else if (stage === 'preFlop' && ((dealerButtonPosition && disabled) || (!dealerButtonPosition && !disabled))) {
 				this.setState({
@@ -757,10 +774,20 @@ class App extends React.Component {
 				})
 				if (!dealerButtonPosition && !disabled) {
 					console.log('Check p1 after limp and go to next street')
+
+					setTimeout(() => {
+						this.player2turn()
+					}, timeBeforePlayer2acts);
+
 				} else {
 					console.log('Check p2 after limp and go to next street')
 				}
 				this.animateCallChips()
+
+				setTimeout(() => {
+					this.player2turn()
+				}, timeBeforePlayer2acts);
+
 				// Check and don't go to next street
 			} else {
 				this.setState({
@@ -768,6 +795,13 @@ class App extends React.Component {
 					disabledPlayer2: !disabledPlayer2,
 				});
 				console.log('Check')
+
+				// if((!dealerButtonPosition && !disabled) || (dealerButtonPosition && !disabled)){
+				if (!disabled) {
+					setTimeout(() => {
+						this.player2turn()
+					}, timeBeforePlayer2acts);
+				}
 			}
 		}
 	}
@@ -851,6 +885,11 @@ class App extends React.Component {
 				disabled: !disabled,
 				disabledPlayer2: !disabledPlayer2,
 			});
+
+			setTimeout(() => {
+				this.player2turn()
+			}, timeBeforePlayer2acts);
+
 			console.log('limp p1')
 		}
 		else if (player2bet === smallBlindAmount) {
@@ -875,6 +914,12 @@ class App extends React.Component {
 				});
 				console.log('Call by player 1 ip')
 				this.animateCallChips()
+
+				if (stage !== 'river') {
+					setTimeout(() => {
+						this.player2turn()
+					}, timeBeforePlayer2acts);
+				}
 			}
 			// Call by player 1 oop
 			else if ((player1bet < player2bet) && !dealerButtonPosition) {
@@ -904,6 +949,10 @@ class App extends React.Component {
 				});
 				console.log('Call by player 2 oop')
 				this.animateCallChips()
+
+				setTimeout(() => {
+					this.player2turn()
+				}, timeBeforePlayer2acts);
 			}
 
 			// Player2 is allIn (don't call more than stack)
@@ -987,6 +1036,10 @@ class App extends React.Component {
 			})
 			this.animateBetRaiseChips('p1')
 		}
+
+		setTimeout(() => {
+			this.player2turn()
+		}, timeBeforePlayer2acts);
 	}
 
 	betPlayer2 = () => {
@@ -1034,6 +1087,10 @@ class App extends React.Component {
 				disabledPlayer2: !disabledPlayer2,
 			})
 			this.animateBetRaiseChips('p1')
+
+			setTimeout(() => {
+				this.player2turn()
+			}, timeBeforePlayer2acts);
 		}
 		// else if ((player2money === 0) || (player2bet >= player1money + player1bet)) {
 		// 	this.setState({
@@ -1070,6 +1127,10 @@ class App extends React.Component {
 				disabledPlayer2: !disabledPlayer2,
 			})
 			this.animateBetRaiseChips('p1')
+
+			setTimeout(() => {
+				this.player2turn()
+			}, timeBeforePlayer2acts);
 		}
 	}
 
@@ -1093,17 +1154,21 @@ class App extends React.Component {
 	}
 
 	allIn = () => {
-		const { player1money, player2money, player1bet, player2bet } = this.state
+		const { player1money, player1bet } = this.state
 
-		if (player2money + player2bet > player1money + player1bet) {
-			this.setState({
-				bet: player1money + player1bet,
-			});
-		} else {
-			this.setState({
-				bet: player2money + player2bet,
-			});
-		}
+		// if (player2money + player2bet > player1money + player1bet) {
+		// 	this.setState({
+		// 		bet: player1money + player1bet,
+		// 	});
+		// } else {
+		// 	this.setState({
+		// 		bet: player2money + player2bet,
+		// 	});
+		// }
+
+		this.setState({
+			bet: player1money + player1bet,
+		});
 	}
 
 	betIncreaseDecrease = (type) => {

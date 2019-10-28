@@ -19,7 +19,7 @@
 
 .player2bet {
     position: absolute;
-    top: 25vh;
+    top: 20vh;
     left: 55vw;
     width: 100px;
 }
@@ -52,7 +52,7 @@
 }
 
 .player2chipsInTheMiddle {
-    top: 25vh;
+    top: 20vh;
     left: 63vw;
 }
 
