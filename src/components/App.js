@@ -110,10 +110,10 @@ class App extends React.Component {
 		const { dealerButtonPosition, player1money, player2money, smallBlindAmount, bigBlindAmount, disabledPlayer2, deck } = this.state
 
 		// Game over
-		if (player1money === 0 || player2money === 0) {
-			alert('Game Over')
-			return
-		}
+		// if (player1money === 0 || player2money === 0) {
+		// 	alert('Game Over')
+		// 	return
+		// }
 
 		if (!dealerButtonPosition) {
 			setTimeout(() => {
@@ -361,7 +361,7 @@ class App extends React.Component {
 	}
 
 	showCards = () => {
-		const { dealCount, smallBlindAmount, bigBlindAmount } = this.state
+		const { dealCount, smallBlindAmount, bigBlindAmount, player1money, player2money } = this.state
 
 		const handOf7player1 = [this.state.player1card1, this.state.player1card2, this.state.flop1, this.state.flop2, this.state.flop3, this.state.turn, this.state.river]
 
@@ -383,10 +383,6 @@ class App extends React.Component {
 			});
 		}
 
-		setTimeout(() => {
-			this.dealCards()
-		}, timeBeforePlayer2acts);
-
 		// Blinds go up every 5 hands
 		if (dealCount % 5 === 0) {
 			this.setState({
@@ -395,6 +391,20 @@ class App extends React.Component {
 			});
 		}
 		this.setState({ dealCount: dealCount + 1 });
+
+		// Game over
+		if (player1money === 0 || player2money === 0) {
+			this.setState({
+				player1money: startMoney,
+				player2money: startMoney,
+				dealCount: 1,
+				disabledDeal: false,
+			});
+		} else {
+			setTimeout(() => {
+				this.dealCards()
+			}, timeBeforePlayer2acts);
+		}
 	}
 
 	showdown = (result) => {
