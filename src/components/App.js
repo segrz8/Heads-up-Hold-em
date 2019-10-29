@@ -115,52 +115,66 @@ class App extends React.Component {
 		// 	return
 		// }
 
-		if (!dealerButtonPosition) {
-			setTimeout(() => {
-				this.player2turn()
-			}, timeBeforePlayer2acts);
-			// } else {
+		// Game over
+		if (player1money === 0 || player2money === 0) {
+			this.setState({
+				player1money: startMoney,
+				player2money: startMoney,
+				dealCount: 1,
+				disabledDeal: false,
+				smallBlindAmount: startMoney / 600,
+				bigBlindAmount: startMoney / 300,
+			});
+		}
+		// Game on
+		else {
+			if (!dealerButtonPosition) {
+				setTimeout(() => {
+					this.player2turn()
+				}, timeBeforePlayer2acts);
+				// } else {
+				// 	this.setState({ timerActive: true });
+				// 	setTimeout(() => {
+				// 		this.fold()
+				// 		this.setState({ timerActive: false });
+				// 	}, 5000);
+			}
+
+			// Shuffling the deck
+			let shuffledDeck = [...deck]
+
+			for (let i = shuffledDeck.length - 1; i > 0; i--) {
+				let j = Math.floor(Math.random() * (i + 1));
+				let temp = shuffledDeck[i];
+				shuffledDeck[i] = shuffledDeck[j];
+				shuffledDeck[j] = temp;
+			}
+
+			this.setState({
+				player1money: dealerButtonPosition ? player1money - smallBlindAmount : player1money - bigBlindAmount,
+				player2money: !dealerButtonPosition ? player2money - smallBlindAmount : player2money - bigBlindAmount,
+				bet: bigBlindAmount * 2,
+				player1bet: dealerButtonPosition ? smallBlindAmount : bigBlindAmount,
+				player2bet: !dealerButtonPosition ? smallBlindAmount : bigBlindAmount,
+				shuffledDeck,
+				player1card1: shuffledDeck[0],
+				player1card2: shuffledDeck[1],
+				player2card1: shuffledDeck[2],
+				player2card2: shuffledDeck[3],
+				disabled: dealerButtonPosition ? false : true,
+				disabledDeal: true,
+				disabledPlayer2: dealerButtonPosition ? true : !disabledPlayer2,
+				showPlayer2cards: false,
+			})
+
+			// if (dealerButtonPosition) {
+			// 	this.player1TurnStart()
 			// 	this.setState({ timerActive: true });
-			// 	setTimeout(() => {
-			// 		this.fold()
-			// 		this.setState({ timerActive: false });
-			// 	}, 5000);
+			// } else this.player2turn()
+
+			this.animateBetRaiseChips('p1')
+			this.animateBetRaiseChips('p2')
 		}
-
-		// Shuffling the deck
-		let shuffledDeck = [...deck]
-
-		for (let i = shuffledDeck.length - 1; i > 0; i--) {
-			let j = Math.floor(Math.random() * (i + 1));
-			let temp = shuffledDeck[i];
-			shuffledDeck[i] = shuffledDeck[j];
-			shuffledDeck[j] = temp;
-		}
-
-		this.setState({
-			player1money: dealerButtonPosition ? player1money - smallBlindAmount : player1money - bigBlindAmount,
-			player2money: !dealerButtonPosition ? player2money - smallBlindAmount : player2money - bigBlindAmount,
-			bet: bigBlindAmount * 2,
-			player1bet: dealerButtonPosition ? smallBlindAmount : bigBlindAmount,
-			player2bet: !dealerButtonPosition ? smallBlindAmount : bigBlindAmount,
-			shuffledDeck,
-			player1card1: shuffledDeck[0],
-			player1card2: shuffledDeck[1],
-			player2card1: shuffledDeck[2],
-			player2card2: shuffledDeck[3],
-			disabled: dealerButtonPosition ? false : true,
-			disabledDeal: true,
-			disabledPlayer2: dealerButtonPosition ? true : !disabledPlayer2,
-			showPlayer2cards: false,
-			// timerActive: dealerButtonPosition ? this.player1TurnStart() : this.player2turn(),
-		})
-		// if (dealerButtonPosition) {
-		// 	this.player1TurnStart()
-		// 	this.setState({ timerActive: true });
-		// } else this.player2turn()
-
-		this.animateBetRaiseChips('p1')
-		this.animateBetRaiseChips('p2')
 	}
 
 	// player1TurnStart = () => {
@@ -361,7 +375,7 @@ class App extends React.Component {
 	}
 
 	showCards = () => {
-		const { dealCount, smallBlindAmount, bigBlindAmount, player1money, player2money } = this.state
+		const { dealCount, smallBlindAmount, bigBlindAmount } = this.state
 
 		const handOf7player1 = [this.state.player1card1, this.state.player1card2, this.state.flop1, this.state.flop2, this.state.flop3, this.state.turn, this.state.river]
 
@@ -392,33 +406,41 @@ class App extends React.Component {
 		}
 		this.setState({ dealCount: dealCount + 1 });
 
-		// Game over
-		if (player1money === 0 || player2money === 0) {
-			this.setState({
-				player1money: startMoney,
-				player2money: startMoney,
-				dealCount: 1,
-				disabledDeal: false,
-			});
-		} else {
-			setTimeout(() => {
-				this.dealCards()
-			}, timeBeforePlayer2acts);
-		}
+		setTimeout(() => {
+			this.dealCards()
+		}, timeBeforePlayer2acts);
 	}
 
 	showdown = (result) => {
 		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot } = this.state
 		if (result === 'player1won') {
+			if (player1bet >= player2bet) {
+				this.setState({
+					player1money: player1money + pot + player1bet + player2bet,
+				});
+			} else {
+				this.setState({
+					player1money: pot / 2 + player1bet * 2,
+					player2money: pot / 2 + player2bet - player1bet,
+				});
+			}
 			this.setState({
 				pot: 0,
-				player1money: player1money + pot + player1bet + player2bet,
 				actionInfo: 'You win',
 			});
 		} else if (result === 'player2won') {
+			if (player2bet >= player1bet) {
+				this.setState({
+					player2money: player2money + pot + player2bet + player1bet,
+				});
+			} else {
+				this.setState({
+					player2money: pot / 2 + player2bet * 2,
+					player1money: pot / 2 + player1bet - player2bet,
+				});
+			}
 			this.setState({
 				pot: 0,
-				player2money: player2money + pot + player1bet + player2bet,
 				actionInfo: 'You lose',
 			});
 		} else if (result === 'chop') {
