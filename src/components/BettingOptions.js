@@ -16,6 +16,7 @@ function BettingOptions(props) {
                     smallBlindAmount={smallBlindAmount}
                     disabled={disabled}
                     betAmountChange={betAmountChange}
+                    player1money={player1money}
                 />
                 <button
                     className="allIn"
@@ -32,6 +33,7 @@ function BettingOptions(props) {
                 <BetSlider
                     player1money={player1money}
                     player1bet={player1bet}
+                    player2bet={player2bet}
                     smallBlindAmount={smallBlindAmount}
                     disabled={disabled}
                     betAmountChange={betAmountChange}

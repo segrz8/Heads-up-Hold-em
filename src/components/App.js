@@ -335,45 +335,14 @@ class App extends React.Component {
 			}
 		}
 		// Set slider
-		this.setState({ bet: bigBlindAmount * 2 });
+		this.setSlider()
+	}
 
-		// When player 1 is allIn
-
-		// if (player1bet === player2money + player2bet || player1money === 0) {
-		// 	const index2 = Math.floor(Math.random() * 2)
-		// 	if (index2 === 0) {
-		// 		this.fold()
-		// 	} else {
-		// 		this.call()
-		// 	}
-		// } else if (player1bet > player2bet) {
-		// 	const index1 = Math.floor(Math.random() * 3)
-		// 	if (index1 === 0) {
-		// 		this.fold()
-		// 	}
-		// 	else if (index1 === 1) {
-		// 		this.call()
-		// 	}
-		// 	else {
-		// 		this.raisePlayer2()
-		// 	}
-		// } else if (player1bet === player2bet) {
-		// 	const index2 = Math.floor(Math.random() * 2)
-		// 	if (index2 === 0) {
-		// 		this.fold()
-		// 	}
-		// 	else {
-		// 		this.betPlayer2()
-		// 	}
-		// }
-
-		// 	this.setState({ timerActive: true });
-		// 	// this.player1TurnStart()
-		// }, 3000);
-
-		// this.setState({
-		// 	disabledPlayer2: !this.state.disabledPlayer2,
-		// });
+	setSlider = () => {
+		const { stage, player1bet, player2bet, smallBlindAmount, bigBlindAmount } = this.state
+		if (stage === 'preFlop' && (player1bet === smallBlindAmount || player2bet === smallBlindAmount)) this.setState({ bet: bigBlindAmount * 2 });
+		else if (player2bet === 0) this.setState({ bet: bigBlindAmount });
+		else this.setState({ bet: player2bet * 2 - player1bet });
 	}
 
 	showCards = () => {
@@ -989,7 +958,7 @@ class App extends React.Component {
 					player1money: player1money - player2bet + player1bet,
 					player1bet: player2bet,
 					// Set slider
-					bet: bigBlindAmount * 2,
+					bet: bigBlindAmount,
 				});
 				console.log('Call by player 1 oop')
 				this.animateCallChips()
