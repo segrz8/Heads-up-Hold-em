@@ -334,6 +334,8 @@ class App extends React.Component {
 				else this.fold()
 			}
 		}
+		// Set slider
+		this.setState({ bet: bigBlindAmount * 2 });
 
 		// When player 1 is allIn
 
@@ -412,7 +414,7 @@ class App extends React.Component {
 	}
 
 	showdown = (result) => {
-		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot } = this.state
+		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabledShowdown } = this.state
 		if (result === 'player1won') {
 			if (player1bet >= player2bet) {
 				this.setState({
@@ -469,6 +471,7 @@ class App extends React.Component {
 		this.setState({
 			player1bet: 0,
 			player2bet: 0,
+			disabledShowdown: !disabledShowdown,
 			dealerButtonPosition: !dealerButtonPosition,
 			player1card1: null,
 			player1card2: null,
