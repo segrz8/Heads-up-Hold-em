@@ -1252,9 +1252,15 @@ class App extends React.Component {
 	}
 
 	betIncreaseDecrease = (type) => {
-		const { bet, bigBlindAmount } = this.state
-		if (type === '+') this.setState({ bet: Number(bet) + bigBlindAmount });
-		else if (type === '-') this.setState({ bet: Number(bet) - bigBlindAmount });
+		const { bet, bigBlindAmount, player1money, player1bet } = this.state
+		if (type === '+') {
+			if (bet >= player1money + player1bet) return
+			this.setState({ bet: Number(bet) + bigBlindAmount });
+		}
+		else if (type === '-') {
+			if (bet <= 0) return
+			else this.setState({ bet: Number(bet) - bigBlindAmount });
+		}
 	}
 
 	betRaiseAllIn = () => {
