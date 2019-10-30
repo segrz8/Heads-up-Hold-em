@@ -5,6 +5,9 @@
     top: 5px;
     left: 5px;
     font-size: 24px;
+    z-index: 1;
+    background-color: black;
+    padding: 4px;
 }
 
 @media (min-width:730px) {
