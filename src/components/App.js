@@ -377,7 +377,7 @@ class App extends React.Component {
 	}
 
 	showCards = () => {
-		const { dealCount, smallBlindAmount, bigBlindAmount } = this.state
+		const { dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown, dealerButtonPosition } = this.state
 
 		const handOf7player1 = [this.state.player1card1, this.state.player1card2, this.state.flop1, this.state.flop2, this.state.flop3, this.state.turn, this.state.river]
 
@@ -389,9 +389,27 @@ class App extends React.Component {
 		this.showdown(result)
 
 		this.setState({
+			player1bet: 0,
+			player2bet: 0,
+			disabledShowdown: !disabledShowdown,
+			dealerButtonPosition: !dealerButtonPosition,
+			player1card1: null,
+			player1card2: null,
+			player2card1: null,
+			player2card2: null,
+			stage: 'preFlop',
+			flop1: null,
+			flop2: null,
+			flop3: null,
+			turn: null,
+			river: null,
 			disabledPlayer2: true,
-			disabledShowdown: !this.state.disabledShowdown,
 		});
+		this.animateCallChips('fold')
+
+		setTimeout(() => {
+			this.setState({ actionInfo: '' });
+		}, 3000);
 
 		if (this.state.stage === 'river') {
 			this.setState({
@@ -414,7 +432,7 @@ class App extends React.Component {
 	}
 
 	showdown = (result) => {
-		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabledShowdown } = this.state
+		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot } = this.state
 		if (result === 'player1won') {
 			if (player1bet >= player2bet) {
 				this.setState({
@@ -468,27 +486,7 @@ class App extends React.Component {
 			this.setState({ actionInfo: 'Chop', });
 			console.log(choppedPot)
 		}
-		this.setState({
-			player1bet: 0,
-			player2bet: 0,
-			disabledShowdown: !disabledShowdown,
-			dealerButtonPosition: !dealerButtonPosition,
-			player1card1: null,
-			player1card2: null,
-			player2card1: null,
-			player2card2: null,
-			stage: 'preFlop',
-			flop1: null,
-			flop2: null,
-			flop3: null,
-			turn: null,
-			river: null,
-		});
-		this.animateCallChips('fold')
 
-		setTimeout(() => {
-			this.setState({ actionInfo: '' });
-		}, 3000);
 	}
 
 	evaluateHand = (hand) => {
@@ -714,7 +712,7 @@ class App extends React.Component {
 	}
 
 	fold = () => {
-		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, dealCount, smallBlindAmount, bigBlindAmount } = this.state
+		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown } = this.state
 		// Fold
 		if (player1bet !== player2bet) {
 			this.setState({
@@ -795,14 +793,17 @@ class App extends React.Component {
 				this.setState({
 					disabled: !disabled,
 				});
-				// if (this.state.stage === 'river') {
-				// 	this.setState({
-				// 		disabledShowdown: !disabledShowdown,
-				// 		disabled: true,
-				// 		disabledPlayer2: true,
-				// 		showPlayer2cards: true,
-				// 	});
-				// }
+
+				// Showdown
+				if (this.state.stage === 'river') {
+					this.setState({
+						disabledShowdown: !disabledShowdown,
+						disabled: true,
+						disabledPlayer2: true,
+						showPlayer2cards: true,
+					});
+				}
+
 				console.log('Check and go to next street')
 				this.animateCallChips()
 
@@ -859,7 +860,7 @@ class App extends React.Component {
 	}
 
 	call = () => {
-		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, disabledShowdown, smallBlindAmount } = this.state
+		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, disabledShowdown, smallBlindAmount, bigBlindAmount } = this.state
 
 		// AllIn call
 		if (player1bet === player2money + player2bet || player2bet === player1money + player1bet || player1money === 0 || player2money === 0) {
@@ -978,6 +979,8 @@ class App extends React.Component {
 				this.setState({
 					player1money: player1money - player2bet + player1bet,
 					player1bet: player2bet,
+					// Set slider
+					bet: bigBlindAmount * 2,
 				});
 				console.log('Call by player 1 oop')
 				this.animateCallChips()
