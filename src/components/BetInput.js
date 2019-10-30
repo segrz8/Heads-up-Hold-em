@@ -2,13 +2,14 @@ import React from 'react'
 import './BetInput.css'
 
 function BetInput(props) {
-    const { player1bet, player2bet, disabled, smallBlindAmount, bet, bigBlindAmount, betAmountChange } = props
+    const { player1bet, player2bet, disabled, smallBlindAmount, bet, bigBlindAmount, betAmountChange, player1money } = props
     return (
         <input
             className="amount"
             type="number"
             value={bet}
             min={player1bet === player2bet ? bigBlindAmount : player1bet}
+            max={player1money + player1bet}
             onChange={betAmountChange}
             step={smallBlindAmount}
             disabled={disabled}

@@ -35,6 +35,7 @@ function BettingOptions(props) {
                     smallBlindAmount={smallBlindAmount}
                     disabled={disabled}
                     betAmountChange={betAmountChange}
+                    bet={bet}
                 />
                 <button
                     className="betPlus"

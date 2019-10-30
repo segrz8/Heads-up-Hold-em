@@ -1076,7 +1076,12 @@ class App extends React.Component {
 
 		if (bet < bigBlindAmount) {
 			alert(`The minimum bet is ${bigBlindAmount}`)
-		} else {
+		}
+		// No more than stack
+		else if (bet > player1money + player1bet) {
+			alert(`The maximum bet is to ${player1money + player1bet}`)
+		}
+		else {
 			this.setState({
 				player1money: player1money - bet,
 				player1bet: player1bet + Number(bet),
@@ -1084,11 +1089,11 @@ class App extends React.Component {
 				disabledPlayer2: !disabledPlayer2,
 			})
 			this.animateBetRaiseChips('p1')
-		}
 
-		setTimeout(() => {
-			this.player2turn()
-		}, timeBeforePlayer2acts);
+			setTimeout(() => {
+				this.player2turn()
+			}, timeBeforePlayer2acts);
+		}
 	}
 
 	betPlayer2 = () => {
@@ -1146,6 +1151,12 @@ class App extends React.Component {
 		// 		disabledRaise: true,
 		// 	});
 		// }
+
+		// No more than stack
+		else if (bet > player1money + player1bet) {
+			alert(`The maximum raise is to ${player1money + player1bet}`)
+		}
+
 		// Alert preflop: raise not big enough
 		else if ((player1bet + player2bet === smallBlindAmount + bigBlindAmount) && bet < bigBlindAmount * 2) {
 			alert(`The minimum raise is to ${bigBlindAmount * 2}`)
@@ -1159,6 +1170,7 @@ class App extends React.Component {
 		// 	})
 		// 	this.animateBetRaiseChips('p1')
 		// } 
+
 		// Alert postflop: raise not big enough
 		else if (bet < (player2bet * 2 - player1bet)) {
 			alert(`The minimum raise is to ${player2bet * 2 - player1bet}`)
@@ -1167,6 +1179,7 @@ class App extends React.Component {
 		// else if (bet > player2money + player2bet) {
 		// 	alert(`The maximum raise is to ${player2money + player2bet}`)
 		// } 
+
 		// Raise
 		else {
 			this.setState({
