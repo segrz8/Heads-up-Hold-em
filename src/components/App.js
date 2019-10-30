@@ -376,7 +376,7 @@ class App extends React.Component {
 				disabledPlayer2: true,
 			});
 			this.animateCallChips('fold')
-		}, 6000);
+		}, 3000);
 
 
 		setTimeout(() => {
@@ -400,7 +400,7 @@ class App extends React.Component {
 
 		setTimeout(() => {
 			this.dealCards()
-		}, 9000);
+		}, 3000);
 	}
 
 	showdown = (result) => {
@@ -684,7 +684,7 @@ class App extends React.Component {
 	}
 
 	fold = () => {
-		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, dealCount, smallBlindAmount, bigBlindAmount } = this.state
+		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown } = this.state
 		// Fold
 		if (player1bet !== player2bet) {
 			this.setState({
@@ -769,14 +769,11 @@ class App extends React.Component {
 				// Showdown
 				if (stage === 'river') {
 					this.setState({
-						// disabledShowdown: !disabledShowdown,
+						disabledShowdown: !disabledShowdown,
 						disabled: true,
 						// disabledPlayer2: true,
 						showPlayer2cards: true,
 					});
-					setTimeout(() => {
-						this.showCards()
-					}, 3000);
 				}
 
 				console.log('Check and go to next street')
@@ -835,7 +832,7 @@ class App extends React.Component {
 	}
 
 	call = () => {
-		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, smallBlindAmount, bigBlindAmount } = this.state
+		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, smallBlindAmount, bigBlindAmount, disabledShowdown } = this.state
 
 		// AllIn call
 		if (player1bet === player2money + player2bet || player2bet === player1money + player1bet || player1money === 0 || player2money === 0) {
@@ -858,13 +855,10 @@ class App extends React.Component {
 				});
 			}
 			this.setState({
-				// disabledShowdown: !disabledShowdown,
+				disabledShowdown: !disabledShowdown,
 				// disabledPlayer2: true,
 				showPlayer2cards: true,
 			});
-			setTimeout(() => {
-				this.showCards()
-			}, 3000);
 
 			console.log('allin call')
 			this.animateCallChips()
@@ -1029,14 +1023,11 @@ class App extends React.Component {
 			// Showdown
 			else if (stage === 'river') {
 				this.setState({
-					// disabledShowdown: !disabledShowdown,
+					disabledShowdown: !disabledShowdown,
 					disabled: true,
 					// disabledPlayer2: true,
 					showPlayer2cards: true,
 				});
-				setTimeout(() => {
-					this.showCards()
-				}, 3000);
 			}
 
 			if (player1money !== 0 && player2money !== 0) {
@@ -1292,7 +1283,7 @@ class App extends React.Component {
 		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, disabledShowdown, smallBlindAmount, bet, bigBlindAmount, disabledDeal, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river, showPlayer2cards, actionInfo } = this.state
 
 		return (
-			<div className="wrapAndRotateInfo">
+			<div className="wrapAndRotateInfo" >
 				<div className='wrap'>
 					<ActionInfo
 						actionInfo={actionInfo}
@@ -1366,8 +1357,8 @@ class App extends React.Component {
 					/>
 				</div>
 				{/* When orientation: portrait */}
-				<h1 className="rotateInfo">Please rotate the device</h1>
-			</div>
+				<h1 className="rotateInfo" > Please rotate the device</h1>
+			</div >
 		);
 	}
 }
