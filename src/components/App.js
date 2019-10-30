@@ -388,24 +388,27 @@ class App extends React.Component {
 
 		this.showdown(result)
 
-		this.setState({
-			player1bet: 0,
-			player2bet: 0,
-			disabledShowdown: !disabledShowdown,
-			dealerButtonPosition: !dealerButtonPosition,
-			player1card1: null,
-			player1card2: null,
-			player2card1: null,
-			player2card2: null,
-			stage: 'preFlop',
-			flop1: null,
-			flop2: null,
-			flop3: null,
-			turn: null,
-			river: null,
-			disabledPlayer2: true,
-		});
-		this.animateCallChips('fold')
+		setTimeout(() => {
+			this.setState({
+				player1bet: 0,
+				player2bet: 0,
+				disabledShowdown: !disabledShowdown,
+				dealerButtonPosition: !dealerButtonPosition,
+				player1card1: null,
+				player1card2: null,
+				player2card1: null,
+				player2card2: null,
+				stage: 'preFlop',
+				flop1: null,
+				flop2: null,
+				flop3: null,
+				turn: null,
+				river: null,
+				disabledPlayer2: true,
+			});
+			this.animateCallChips('fold')
+		}, 6000);
+
 
 		setTimeout(() => {
 			this.setState({ actionInfo: '' });
@@ -428,7 +431,7 @@ class App extends React.Component {
 
 		setTimeout(() => {
 			this.dealCards()
-		}, timeBeforePlayer2acts);
+		}, 9000);
 	}
 
 	showdown = (result) => {
@@ -712,7 +715,7 @@ class App extends React.Component {
 	}
 
 	fold = () => {
-		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown } = this.state
+		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, dealCount, smallBlindAmount, bigBlindAmount } = this.state
 		// Fold
 		if (player1bet !== player2bet) {
 			this.setState({
@@ -795,13 +798,16 @@ class App extends React.Component {
 				});
 
 				// Showdown
-				if (this.state.stage === 'river') {
+				if (stage === 'river') {
 					this.setState({
-						disabledShowdown: !disabledShowdown,
+						// disabledShowdown: !disabledShowdown,
 						disabled: true,
-						disabledPlayer2: true,
+						// disabledPlayer2: true,
 						showPlayer2cards: true,
 					});
+					setTimeout(() => {
+						this.showCards()
+					}, 3000);
 				}
 
 				console.log('Check and go to next street')
@@ -860,7 +866,7 @@ class App extends React.Component {
 	}
 
 	call = () => {
-		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, disabledShowdown, smallBlindAmount, bigBlindAmount } = this.state
+		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, smallBlindAmount, bigBlindAmount } = this.state
 
 		// AllIn call
 		if (player1bet === player2money + player2bet || player2bet === player1money + player1bet || player1money === 0 || player2money === 0) {
@@ -883,10 +889,13 @@ class App extends React.Component {
 				});
 			}
 			this.setState({
-				disabledShowdown: !disabledShowdown,
-				disabledPlayer2: true,
+				// disabledShowdown: !disabledShowdown,
+				// disabledPlayer2: true,
 				showPlayer2cards: true,
 			});
+			setTimeout(() => {
+				this.showCards()
+			}, 3000);
 
 			console.log('allin call')
 			this.animateCallChips()
@@ -1051,11 +1060,14 @@ class App extends React.Component {
 			// Showdown
 			else if (stage === 'river') {
 				this.setState({
-					disabledShowdown: !disabledShowdown,
+					// disabledShowdown: !disabledShowdown,
 					disabled: true,
-					disabledPlayer2: true,
+					// disabledPlayer2: true,
 					showPlayer2cards: true,
 				});
+				setTimeout(() => {
+					this.showCards()
+				}, 3000);
 			}
 
 			if (player1money !== 0 && player2money !== 0) {
