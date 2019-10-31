@@ -346,11 +346,11 @@ class App extends React.Component {
 	}
 
 	showCards = () => {
-		const { dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown, dealerButtonPosition } = this.state
+		const { dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown, dealerButtonPosition, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river } = this.state
 
-		const handOf7player1 = [this.state.player1card1, this.state.player1card2, this.state.flop1, this.state.flop2, this.state.flop3, this.state.turn, this.state.river]
+		const handOf7player1 = [player1card1, player1card2, flop1, flop2, flop3, turn, river]
 
-		const handOf7player2 = [this.state.player2card1, this.state.player2card2, this.state.flop1, this.state.flop2, this.state.flop3, this.state.turn, this.state.river]
+		const handOf7player2 = [player2card1, player2card2, flop1, flop2, flop3, turn, river]
 
 		const result = this.compareHands(handOf7player1, handOf7player2)
 		console.log(result)
