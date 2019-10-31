@@ -115,7 +115,7 @@ class App extends React.Component {
 	}
 
 	dealCards = () => {
-		const { dealerButtonPosition, player1money, player2money, smallBlindAmount, bigBlindAmount, disabledPlayer2, deck, disabledShowdown } = this.state
+		const { dealerButtonPosition, player1money, player2money, smallBlindAmount, bigBlindAmount, disabledPlayer2, deck } = this.state
 
 		// Game over
 		if (player1money === 0 || player2money === 0) {
@@ -126,65 +126,57 @@ class App extends React.Component {
 				disabledDeal: false,
 				smallBlindAmount: startMoney / 600,
 				bigBlindAmount: startMoney / 300,
-
 			});
 		}
 		// Game on
-		if (!dealerButtonPosition) {
-			setTimeout(() => {
-				this.player2turn()
-			}, timeBeforePlayer2acts);
-			// } else {
-			// 	this.setState({ timerActive: true });
-			// 	setTimeout(() => {
-			// 		this.fold()
-			// 		this.setState({ timerActive: false });
-			// 	}, 5000);
-		}
-
-		// Shuffling the deck
-		let shuffledDeck = [...deck]
-
-		for (let i = shuffledDeck.length - 1; i > 0; i--) {
-			let j = Math.floor(Math.random() * (i + 1));
-			let temp = shuffledDeck[i];
-			shuffledDeck[i] = shuffledDeck[j];
-			shuffledDeck[j] = temp;
-		}
-
-		this.setState({
-			bet: bigBlindAmount * 2,
-			shuffledDeck,
-			player1card1: shuffledDeck[0],
-			player1card2: shuffledDeck[1],
-			player2card1: shuffledDeck[2],
-			player2card2: shuffledDeck[3],
-			disabled: dealerButtonPosition ? false : true,
-			disabledDeal: true,
-			disabledPlayer2: dealerButtonPosition ? true : !disabledPlayer2,
-			showPlayer2cards: false,
-			disabledShowdown: true,
-		})
-
-		// Set money after game over
-		this.setState((prevState) => {
-			return {
-				player1money: prevState.dealerButtonPosition ? prevState.player1money - prevState.smallBlindAmount : prevState.player1money - prevState.bigBlindAmount,
-				player2money: !prevState.dealerButtonPosition ? prevState.player2money - prevState.smallBlindAmount : prevState.player2money - prevState.bigBlindAmount,
-				player1bet: prevState.dealerButtonPosition ? prevState.smallBlindAmount : prevState.bigBlindAmount,
-				player2bet: !prevState.dealerButtonPosition ? prevState.smallBlindAmount : prevState.bigBlindAmount,
+		else {
+			if (!dealerButtonPosition) {
+				setTimeout(() => {
+					this.player2turn()
+				}, timeBeforePlayer2acts);
+				// } else {
+				// 	this.setState({ timerActive: true });
+				// 	setTimeout(() => {
+				// 		this.fold()
+				// 		this.setState({ timerActive: false });
+				// 	}, 5000);
 			}
-		});
 
-		// if (dealerButtonPosition) {
-		// 	this.player1TurnStart()
-		// 	this.setState({ timerActive: true });
-		// } else this.player2turn()
+			// Shuffling the deck
+			let shuffledDeck = [...deck]
 
-		this.animateBetRaiseChips('p1')
-		this.animateBetRaiseChips('p2')
+			for (let i = shuffledDeck.length - 1; i > 0; i--) {
+				let j = Math.floor(Math.random() * (i + 1));
+				let temp = shuffledDeck[i];
+				shuffledDeck[i] = shuffledDeck[j];
+				shuffledDeck[j] = temp;
+			}
 
+			this.setState({
+				player1money: dealerButtonPosition ? player1money - smallBlindAmount : player1money - bigBlindAmount,
+				player2money: !dealerButtonPosition ? player2money - smallBlindAmount : player2money - bigBlindAmount,
+				bet: bigBlindAmount * 2,
+				player1bet: dealerButtonPosition ? smallBlindAmount : bigBlindAmount,
+				player2bet: !dealerButtonPosition ? smallBlindAmount : bigBlindAmount,
+				shuffledDeck,
+				player1card1: shuffledDeck[0],
+				player1card2: shuffledDeck[1],
+				player2card1: shuffledDeck[2],
+				player2card2: shuffledDeck[3],
+				disabled: dealerButtonPosition ? false : true,
+				disabledDeal: true,
+				disabledPlayer2: dealerButtonPosition ? true : !disabledPlayer2,
+				showPlayer2cards: false,
+			})
 
+			// if (dealerButtonPosition) {
+			// 	this.player1TurnStart()
+			// 	this.setState({ timerActive: true });
+			// } else this.player2turn()
+
+			this.animateBetRaiseChips('p1')
+			this.animateBetRaiseChips('p2')
+		}
 	}
 
 	// player1TurnStart = () => {
@@ -355,33 +347,49 @@ class App extends React.Component {
 		else this.setState({ bet: player2bet * 2 - player1bet });
 	}
 
-	cleanAfterShowdown = () => {
+	showCards = () => {
 		const { dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown, dealerButtonPosition } = this.state
 
-		this.setState({
-			// disabledShowdown: !disabledShowdown,
-			// dealerButtonPosition: !dealerButtonPosition,
-			player1card1: null,
-			player1card2: null,
-			player2card1: null,
-			player2card2: null,
-			stage: 'preFlop',
-			flop1: null,
-			flop2: null,
-			flop3: null,
-			turn: null,
-			river: null,
-			disabledPlayer2: true,
-			pot: 0,
-			actionInfo: '',
-		});
-		this.animateCallChips('fold')
+		const handOf7player1 = [this.state.player1card1, this.state.player1card2, this.state.flop1, this.state.flop2, this.state.flop3, this.state.turn, this.state.river]
 
-		// if (this.state.stage === 'river') {
-		// 	this.setState({
-		// 		pot: 0,
-		// 	});
-		// }
+		const handOf7player2 = [this.state.player2card1, this.state.player2card2, this.state.flop1, this.state.flop2, this.state.flop3, this.state.turn, this.state.river]
+
+		const result = this.compareHands(handOf7player1, handOf7player2)
+		console.log(result)
+
+		this.showdown(result)
+
+		setTimeout(() => {
+			this.setState({
+				player1bet: 0,
+				player2bet: 0,
+				disabledShowdown: !disabledShowdown,
+				dealerButtonPosition: !dealerButtonPosition,
+				player1card1: null,
+				player1card2: null,
+				player2card1: null,
+				player2card2: null,
+				stage: 'preFlop',
+				flop1: null,
+				flop2: null,
+				flop3: null,
+				turn: null,
+				river: null,
+				disabledPlayer2: true,
+			});
+			this.animateCallChips('fold')
+		}, 3000);
+
+
+		setTimeout(() => {
+			this.setState({ actionInfo: '' });
+		}, 3000);
+
+		if (this.state.stage === 'river') {
+			this.setState({
+				pot: 0,
+			});
+		}
 
 		// Blinds go up every 5 hands
 		if (dealCount % 5 === 0) {
@@ -392,22 +400,9 @@ class App extends React.Component {
 		}
 		this.setState({ dealCount: dealCount + 1 });
 
-		this.dealCards()
-	}
-
-	showCards = () => {
-		const { player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river } = this.state
-
-		const handOf7player1 = [player1card1, player1card2, flop1, flop2, flop3, turn, river]
-
-		const handOf7player2 = [player2card1, player2card2, flop1, flop2, flop3, turn, river]
-
-		const result = this.compareHands(handOf7player1, handOf7player2)
-		console.log(result)
-
 		setTimeout(() => {
-			this.showdown(result)
-		}, 500);
+			this.dealCards()
+		}, 3000);
 	}
 
 	showdown = (result) => {
@@ -466,17 +461,6 @@ class App extends React.Component {
 			console.log(choppedPot)
 		}
 
-		this.setState({
-			player1bet: 0,
-			player2bet: 0,
-		});
-
-		this.checkIfGameOver()
-	}
-
-	checkIfGameOver = () => {
-		const { player1money, player2money, disabledDeal } = this.state
-		if (player1money === 0 || player2money === 0) this.setState({ disabledDeal: !disabledDeal });
 	}
 
 	evaluateHand = (hand) => {
@@ -796,8 +780,6 @@ class App extends React.Component {
 						// disabledPlayer2: true,
 						showPlayer2cards: true,
 					});
-
-					this.showCards()
 				}
 
 				console.log('Check and go to next street')
@@ -1054,8 +1036,6 @@ class App extends React.Component {
 					// disabledPlayer2: true,
 					showPlayer2cards: true,
 				});
-
-				this.showCards()
 			}
 
 			if (player1money !== 0 && player2money !== 0) {
@@ -1308,7 +1288,7 @@ class App extends React.Component {
 	}
 
 	render() {
-		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, disabledShowdown, smallBlindAmount, bet, bigBlindAmount, disabledDeal, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river, showPlayer2cards, actionInfo, cleanAfterShowdown } = this.state
+		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, disabledShowdown, smallBlindAmount, bet, bigBlindAmount, disabledDeal, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river, showPlayer2cards, actionInfo } = this.state
 
 		return (
 			<div className="wrapAndRotateInfo" >
@@ -1323,7 +1303,6 @@ class App extends React.Component {
 						disabledPlayer2={disabledPlayer2}
 						disabledShowdown={disabledShowdown}
 						disabledDeal={disabledDeal}
-						cleanAfterShowdown={this.cleanAfterShowdown}
 					/>
 					{this.state.timerActive && <Timer />}
 					<div className="table">
