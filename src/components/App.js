@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-// import Timer from '../components/Timer'
 import OperatingButtons from './OperatingButtons';
 import PlayersHUDs from './PlayersHUDs';
 import Board from './Board';
@@ -1456,7 +1455,7 @@ class App extends React.Component {
 					/>
 				</div>
 				{/* When orientation: portrait */}
-				<h1 className="rotateInfo" > Please rotate the device</h1>
+				<h1 className="rotateInfo" > Please rotate <br />the device</h1>
 			</div >
 		);
 	}

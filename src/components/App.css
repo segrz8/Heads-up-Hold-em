@@ -105,13 +105,14 @@ button {
 
     .rotateInfo {
         display: block;
-        color: red;
+        color: white;
         text-transform: uppercase;
         text-align: center;
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%)
+        transform: translate(-50%, -50%);
+        font-size: 28px;
     }
 }
 
