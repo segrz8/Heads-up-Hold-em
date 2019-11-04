@@ -373,6 +373,7 @@ class App extends React.Component {
 		console.log(result)
 
 		this.showdown(result)
+		this.animateCallChips('fold')
 
 		finalizeShowdown = setTimeout(() => {
 			this.setState({
@@ -393,7 +394,6 @@ class App extends React.Component {
 				disabledPlayer2: true,
 				actionInfo: '',
 			});
-			this.animateCallChips('fold')
 			this.dealCards()
 		}, 300000);
 
@@ -444,7 +444,6 @@ class App extends React.Component {
 			disabledPlayer2: true,
 			actionInfo: '',
 		});
-		this.animateCallChips('fold')
 		setTimeout(() => {
 			this.dealCards()
 		}, 100);
