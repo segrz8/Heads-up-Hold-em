@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Timer from '../components/Timer'
+// import Timer from '../components/Timer'
 import OperatingButtons from './OperatingButtons';
 import PlayersHUDs from './PlayersHUDs';
 import Board from './Board';
@@ -9,6 +9,7 @@ import GameButtons from './GameButtons';
 import DealerButton from './DealerButton';
 import BettingOptions from './BettingOptions';
 import ActionInfo from './ActionInfo';
+import Timer from './Timer';
 
 import hearts from '../suitsImg/hearts.png'
 import spades from '../suitsImg/spades.png'
@@ -16,6 +17,7 @@ import diamonds from '../suitsImg/diamonds.png'
 import clubs from '../suitsImg/clubs.png'
 
 let finalizeShowdown
+let startCountdown
 const startMoney = 3000
 // const timeBeforeFold = 20000
 const timeBeforePlayer2acts = 1500
@@ -100,11 +102,12 @@ class App extends React.Component {
 		disabledDeal: false,
 		disabledPlayer2: true,
 		disabledShowdown: true,
-		// timerActive: false,
-		// timeToAct: 10,
+		timerActive: false,
+		timeToAct: 60000,
 		dealCount: 1,
 		showPlayer2cards: false,
 		actionInfo: '',
+		p2timerFix: false,
 	}
 
 	dealCards = () => {
@@ -133,12 +136,8 @@ class App extends React.Component {
 				setTimeout(() => {
 					this.player2turn()
 				}, timeBeforePlayer2acts);
-				// } else {
-				// 	this.setState({ timerActive: true });
-				// 	setTimeout(() => {
-				// 		this.fold()
-				// 		this.setState({ timerActive: false });
-				// 	}, 5000);
+			} else {
+				this.startCountdown()
 			}
 
 			// Shuffling the deck
@@ -194,6 +193,17 @@ class App extends React.Component {
 	// 		this.setState({ timerActive: false });
 	// 	}, this.state.timeToAct * 1000);
 	// }
+
+	startCountdown = () => {
+		this.setState({
+			timerActive: true,
+			// timeToAct: 60000,
+		});
+		startCountdown = setTimeout(() => {
+			this.fold()
+			this.setState({ timerActive: false });
+		}, this.state.timeToAct);
+	}
 
 	player2turn = () => {
 		// this.setState({ timerActive: true });
@@ -337,6 +347,10 @@ class App extends React.Component {
 		}
 		// Set slider
 		this.setSlider()
+
+		// Fix: Countdown starts only after p2 actually starts his turn
+		if (this.state.p2timerFix) this.setState({ p2timerFix: false });
+		else this.startCountdown()
 	}
 
 	setSlider = () => {
@@ -348,6 +362,8 @@ class App extends React.Component {
 
 	showCards = () => {
 		const { dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown, dealerButtonPosition, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river } = this.state
+
+		this.setState({ timerActive: false });
 
 		const handOf7player1 = [player1card1, player1card2, flop1, flop2, flop3, turn, river]
 		const handOf7player2 = [player2card1, player2card2, flop1, flop2, flop3, turn, river]
@@ -452,6 +468,7 @@ class App extends React.Component {
 
 	showdown = (result) => {
 		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot } = this.state
+
 		if (result === 'player1won') {
 			if (player1bet >= player2bet) {
 				this.setState({
@@ -738,6 +755,10 @@ class App extends React.Component {
 
 	fold = () => {
 		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown } = this.state
+
+		clearTimeout(startCountdown)
+		this.setState({ timerActive: false });
+
 		// Fold
 		if (player1bet !== player2bet) {
 			this.setState({
@@ -784,6 +805,8 @@ class App extends React.Component {
 					player1money: pot + player1money + player1bet + player2bet,
 					pot: 0,
 					disabledPlayer2: !disabledPlayer2,
+					// Fix the timer at p2fold
+					p2timerFix: true
 				});
 
 				// this.dealCards()
@@ -889,6 +912,9 @@ class App extends React.Component {
 
 	call = () => {
 		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, smallBlindAmount, bigBlindAmount, disabledShowdown } = this.state
+
+		clearTimeout(startCountdown)
+		this.setState({ timerActive: false });
 
 		// AllIn call
 		if (player1bet === player2money + player2bet || player2bet === player1money + player1bet || player1money === 0 || player2money === 0) {
@@ -1015,6 +1041,10 @@ class App extends React.Component {
 				});
 				console.log('Call by player 1 oop')
 				this.animateCallChips()
+				setTimeout(() => {
+					this.startCountdown()
+				}, 0);
+
 			}
 			// Call by player 2 ip
 			else if ((player1bet > player2bet) && !dealerButtonPosition) {
@@ -1114,6 +1144,9 @@ class App extends React.Component {
 	bet = () => {
 		const { player1money, player1bet, disabled, disabledPlayer2, bet, bigBlindAmount } = this.state
 
+		clearTimeout(startCountdown)
+		this.setState({ timerActive: false });
+
 		if (bet < bigBlindAmount) {
 			alert(`The minimum bet is ${bigBlindAmount}`)
 		}
@@ -1171,6 +1204,9 @@ class App extends React.Component {
 
 	raise = () => {
 		const { player1money, player1bet, player2bet, disabled, disabledPlayer2, smallBlindAmount, bet, bigBlindAmount } = this.state
+
+		clearTimeout(startCountdown)
+		this.setState({ timerActive: false });
 
 		// Less than required but has to go allIn
 		if (bet === player1money + player1bet) {

@@ -10,7 +10,7 @@ function OperatingButtons(props) {
             {/* <button onClick={showCards} disabled={disabledShowdown}>New hand</button> */}
             {disabledDeal ?
                 <button onClick={newHand} disabled={disabledShowdown}>New hand</button> :
-                <button onClick={dealCards} disabled={disabledDeal}>New Game</button>
+                <button className="newGame" onClick={dealCards} disabled={disabledDeal}>New Game</button>
             }
         </div>
     )
