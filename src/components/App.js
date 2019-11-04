@@ -15,6 +15,7 @@ import spades from '../suitsImg/spades.png'
 import diamonds from '../suitsImg/diamonds.png'
 import clubs from '../suitsImg/clubs.png'
 
+let finalizeShowdown
 const startMoney = 3000
 // const timeBeforeFold = 20000
 const timeBeforePlayer2acts = 1500
@@ -373,7 +374,7 @@ class App extends React.Component {
 
 		this.showdown(result)
 
-		setTimeout(() => {
+		finalizeShowdown = setTimeout(() => {
 			this.setState({
 				player1bet: 0,
 				player2bet: 0,
@@ -390,14 +391,15 @@ class App extends React.Component {
 				turn: null,
 				river: null,
 				disabledPlayer2: true,
+				actionInfo: '',
 			});
 			this.animateCallChips('fold')
-		}, 3000);
+			this.dealCards()
+		}, 300000);
 
-
-		setTimeout(() => {
-			this.setState({ actionInfo: '' });
-		}, 3000);
+		// setTimeout(() => {
+		// 	this.setState({ actionInfo: '' });
+		// }, 3000);
 
 		if (this.state.stage === 'river') {
 			this.setState({
@@ -414,9 +416,39 @@ class App extends React.Component {
 		}
 		this.setState({ dealCount: dealCount + 1 });
 
+		// setTimeout(() => {
+		// 	this.dealCards()
+		// }, 3000);
+	}
+
+	newHand = () => {
+		const { disabledShowdown, dealerButtonPosition } = this.state
+
+		clearTimeout(finalizeShowdown)
+
+		this.setState({
+			player1bet: 0,
+			player2bet: 0,
+			disabledShowdown: !disabledShowdown,
+			dealerButtonPosition: !dealerButtonPosition,
+			player1card1: null,
+			player1card2: null,
+			player2card1: null,
+			player2card2: null,
+			stage: 'preFlop',
+			flop1: null,
+			flop2: null,
+			flop3: null,
+			turn: null,
+			river: null,
+			disabledPlayer2: true,
+			actionInfo: '',
+		});
+		this.animateCallChips('fold')
 		setTimeout(() => {
 			this.dealCards()
-		}, 3000);
+		}, 100);
+
 	}
 
 	showdown = (result) => {
@@ -590,8 +622,6 @@ class App extends React.Component {
 						for (let i = 0; i < straights.length; i++) {
 							for (let j = 0; j < possibleHandsOf5.length; j++) {
 								const checkIfStraight = JSON.stringify(straights[i]) === JSON.stringify(possibleHandsOf5[j])
-								console.log(JSON.stringify(straights[i]))
-								console.log(JSON.stringify(possibleHandsOf5[j]))
 								if (checkIfStraight) {
 									result.push('straight')
 									score.push(4, straights[i][0])
@@ -656,8 +686,6 @@ class App extends React.Component {
 			}
 		}
 	}
-
-
 
 	compareHands = (hand1, hand2) => {
 		const player1score = this.evaluateHand(hand1)
@@ -800,6 +828,9 @@ class App extends React.Component {
 						// disabledPlayer2: true,
 						showPlayer2cards: true,
 					});
+					setTimeout(() => {
+						this.showCards()
+					}, 100);
 				}
 
 				console.log('Check and go to next street')
@@ -885,6 +916,9 @@ class App extends React.Component {
 				// disabledPlayer2: true,
 				showPlayer2cards: true,
 			});
+			setTimeout(() => {
+				this.showCards()
+			}, 100);
 
 			console.log('allin call')
 			this.animateCallChips()
@@ -1054,6 +1088,9 @@ class App extends React.Component {
 					// disabledPlayer2: true,
 					showPlayer2cards: true,
 				});
+				setTimeout(() => {
+					this.showCards()
+				}, 100);
 			}
 
 			if (player1money !== 0 && player2money !== 0) {
@@ -1321,6 +1358,7 @@ class App extends React.Component {
 						disabledPlayer2={disabledPlayer2}
 						disabledShowdown={disabledShowdown}
 						disabledDeal={disabledDeal}
+						newHand={this.newHand}
 					/>
 					{this.state.timerActive && <Timer />}
 					<div className="table">
