@@ -349,8 +349,24 @@ class App extends React.Component {
 		const { dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown, dealerButtonPosition, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river } = this.state
 
 		const handOf7player1 = [player1card1, player1card2, flop1, flop2, flop3, turn, river]
-
 		const handOf7player2 = [player2card1, player2card2, flop1, flop2, flop3, turn, river]
+
+		// const handOf7player1 = [
+		// 	{ valueFont: '9', value: 12, suit: 'c' },
+		// 	{ valueFont: '8', value: 12, suit: 'c' },
+		// 	{ valueFont: '7', value: 6, suit: 'c' },
+		// 	{ valueFont: '6', value: 12, suit: 'clubs' },
+		// 	{ valueFont: '5', value: 9, suit: 'clubs' },
+		// 	{ valueFont: '4', value: 13, suit: 'clubs' },
+		// 	{ valueFont: '3', value: 3, suit: 'clubs' },]
+		// const handOf7player2 = [
+		// 	{ valueFont: '8', value: 6, suit: 'c' },
+		// 	{ valueFont: '7', value: 7, suit: 'c' },
+		// 	{ valueFont: '6', value: 5, suit: 'c' },
+		// 	{ valueFont: '5', value: 10, suit: 'clubs' },
+		// 	{ valueFont: '4', value: 4, suit: 'clubs' },
+		// 	{ valueFont: '3', value: 9, suit: 'clubs' },
+		// 	{ valueFont: '2', value: 8, suit: 'clubs' },]
 
 		const result = this.compareHands(handOf7player1, handOf7player2)
 		console.log(result)
@@ -574,8 +590,12 @@ class App extends React.Component {
 						for (let i = 0; i < straights.length; i++) {
 							for (let j = 0; j < possibleHandsOf5.length; j++) {
 								const checkIfStraight = JSON.stringify(straights[i]) === JSON.stringify(possibleHandsOf5[j])
+								console.log(JSON.stringify(straights[i]))
+								console.log(JSON.stringify(possibleHandsOf5[j]))
 								if (checkIfStraight) {
+									result.push('straight')
 									score.push(4, straights[i][0])
+									score.slice(0, 2)
 									return score
 									// Score for Ace low straight
 								} else if (
@@ -586,44 +606,48 @@ class App extends React.Component {
 									hand7valuesSorted.includes(2)) {
 									score = [4, 5]
 									return score
-									// Check for trips and determine kickers
-								} else {
-									if (result.includes('trips')) {
-										const allButTripsValues = allButTrips.map(card => card.value)
-										const kickersTrips = allButTripsValues.sort(function (a, b) { return b - a })
-										score.push(3, tripsValue, ...kickersTrips.slice(0, 2))
-										return score
-										// Check for two pairs
-									} else {
-										for (let i = 0; i < values.length; i++) {
-											const checkIfPair = hand.filter(card => card.value === values[i]).length === 2
-											if (checkIfPair && score.length < 2) {
-												score.push(values[i])
-											}
-										}
-
-										if (score.length === 2) {
-											const firstPair = score[0]
-											const secondPair = score[1]
-											const removeFirstPair = hand7valuesSorted.filter(card => card !== firstPair)
-											const removeSecondPair = removeFirstPair.filter(card => card !== secondPair)
-											score.push(removeSecondPair[0])
-											score.unshift(2)
-											return score
-											// Check for only one pair
-										} else if (score.length === 1) {
-											const firstPair = score[0]
-											const removeFirstPair = hand7valuesSorted.filter(card => card !== firstPair)
-											score.push(...removeFirstPair.slice(0, 3))
-											score.unshift(1)
-											return score
-											// Check for high card
-										} else {
-											const kickers = hand7valuesSorted.slice(0, 5)
-											score.push(0, ...kickers)
-											return score
-										}
+								}
+							}
+						}
+						if (result.includes('straight')) {
+							return score
+						}
+						// Check for trips and determine kickers
+						else {
+							if (result.includes('trips')) {
+								const allButTripsValues = allButTrips.map(card => card.value)
+								const kickersTrips = allButTripsValues.sort(function (a, b) { return b - a })
+								score.push(3, tripsValue, ...kickersTrips.slice(0, 2))
+								return score
+								// Check for two pairs
+							} else {
+								for (let i = 0; i < values.length; i++) {
+									const checkIfPair = hand.filter(card => card.value === values[i]).length === 2
+									if (checkIfPair && score.length < 2) {
+										score.push(values[i])
 									}
+								}
+
+								if (score.length === 2) {
+									const firstPair = score[0]
+									const secondPair = score[1]
+									const removeFirstPair = hand7valuesSorted.filter(card => card !== firstPair)
+									const removeSecondPair = removeFirstPair.filter(card => card !== secondPair)
+									score.push(removeSecondPair[0])
+									score.unshift(2)
+									return score
+									// Check for only one pair
+								} else if (score.length === 1) {
+									const firstPair = score[0]
+									const removeFirstPair = hand7valuesSorted.filter(card => card !== firstPair)
+									score.push(...removeFirstPair.slice(0, 3))
+									score.unshift(1)
+									return score
+									// Check for high card
+								} else {
+									const kickers = hand7valuesSorted.slice(0, 5)
+									score.push(0, ...kickers)
+									return score
 								}
 							}
 						}
@@ -632,6 +656,8 @@ class App extends React.Component {
 			}
 		}
 	}
+
+
 
 	compareHands = (hand1, hand2) => {
 		const player1score = this.evaluateHand(hand1)
