@@ -20,9 +20,9 @@
     color: black;
 }
 
-.newGame {
+/* .newGame {
     background-color: goldenrod !important;
-}
+} */
 
 @media (min-width:730px) {
     .operatingButtons {

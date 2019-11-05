@@ -8,6 +8,7 @@
     z-index: 1;
     background-color: black;
     padding: 4px;
+    /* border: 2px solid rgb(177, 55, 55); */
 }
 
 @media (min-width:730px) {

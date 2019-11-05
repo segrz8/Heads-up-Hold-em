@@ -21,6 +21,11 @@ const startMoney = 3000
 // const timeBeforeFold = 20000
 const timeBeforePlayer2acts = 1500
 
+// jeden przycisk new
+// animacje kart
+// kolory
+// dzwieki
+
 class App extends React.Component {
 	state = {
 		deck: [
@@ -360,7 +365,7 @@ class App extends React.Component {
 	}
 
 	showCards = () => {
-		const { dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown, dealerButtonPosition, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river } = this.state
+		const { dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown, dealerButtonPosition, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river, stage } = this.state
 
 		this.setState({ timerActive: false });
 
@@ -416,7 +421,7 @@ class App extends React.Component {
 		// 	this.setState({ actionInfo: '' });
 		// }, 3000);
 
-		if (this.state.stage === 'river') {
+		if (stage === 'river') {
 			this.setState({
 				pot: 0,
 			});
@@ -434,6 +439,12 @@ class App extends React.Component {
 		// setTimeout(() => {
 		// 	this.dealCards()
 		// }, 3000);
+
+		// if (player1money === 0 || player2money === 0) {
+		// 	this.setState({
+		// 		disabledDeal: false,
+		// 	});
+		// }
 	}
 
 	newHand = () => {
@@ -521,7 +532,10 @@ class App extends React.Component {
 			this.setState({ actionInfo: 'Chop', });
 			console.log(choppedPot)
 		}
-
+		this.setState({
+			player1bet: 0,
+			player2bet: 0,
+		});
 	}
 
 	evaluateHand = (hand) => {
@@ -1377,7 +1391,7 @@ class App extends React.Component {
 	}
 
 	render() {
-		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, disabledShowdown, smallBlindAmount, bet, bigBlindAmount, disabledDeal, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river, showPlayer2cards, actionInfo } = this.state
+		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, disabledShowdown, smallBlindAmount, bet, bigBlindAmount, disabledDeal, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river, showPlayer2cards, actionInfo, timerActive } = this.state
 
 		return (
 			<div className="wrapAndRotateInfo" >
@@ -1386,15 +1400,16 @@ class App extends React.Component {
 						actionInfo={actionInfo}
 					/>
 					<OperatingButtons
+						disabledPlayer2={disabledPlayer2}
+						disabledShowdown={disabledShowdown}
+
 						dealCards={this.dealCards}
 						player2turn={this.player2turn}
 						showCards={this.showCards}
-						disabledPlayer2={disabledPlayer2}
-						disabledShowdown={disabledShowdown}
 						disabledDeal={disabledDeal}
 						newHand={this.newHand}
 					/>
-					{this.state.timerActive && <Timer />}
+					{timerActive && <Timer />}
 					<div className="table">
 						<PlayersHUDs
 							player1money={player1money}
@@ -1448,8 +1463,9 @@ class App extends React.Component {
 						bigBlindAmount={bigBlindAmount}
 						smallBlindAmount={smallBlindAmount}
 						disabled={disabled}
-						betAmountChange={this.betAmountChange}
 						player1money={player1money}
+
+						betAmountChange={this.betAmountChange}
 						allIn={this.allIn}
 						betIncreaseDecrease={this.betIncreaseDecrease}
 					/>

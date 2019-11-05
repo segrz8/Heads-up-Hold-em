@@ -1,5 +1,6 @@
 .timer {
     position: absolute;
+    width: 150px;
     top: 5px;
     left: 5px;
     color: white;
@@ -10,8 +11,4 @@
     padding: 8px;
     text-transform: uppercase;
     /* animation-name: example;animation-duration: 4s; */
-}
-
-.red {
-    color: red;
 }
