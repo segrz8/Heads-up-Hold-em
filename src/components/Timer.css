@@ -12,3 +12,12 @@
     text-transform: uppercase;
     /* animation-name: example;animation-duration: 4s; */
 }
+
+@media (min-width:1024px) {
+    .timer {
+        font-size: 32px;
+        top: 130px;
+        left: 100px;
+        width: 250px;
+    }
+}
