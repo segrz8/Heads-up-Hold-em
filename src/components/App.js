@@ -379,15 +379,17 @@ class App extends React.Component {
 		// 	{ valueFont: '6', value: 12, suit: 'clubs' },
 		// 	{ valueFont: '5', value: 9, suit: 'clubs' },
 		// 	{ valueFont: '4', value: 13, suit: 'clubs' },
-		// 	{ valueFont: '3', value: 3, suit: 'clubs' },]
+		// 	{ valueFont: '3', value: 3, suit: 'clubs' },
+		// ]
 		// const handOf7player2 = [
-		// 	{ valueFont: '8', value: 6, suit: 'c' },
-		// 	{ valueFont: '7', value: 7, suit: 'c' },
-		// 	{ valueFont: '6', value: 5, suit: 'c' },
-		// 	{ valueFont: '5', value: 10, suit: 'clubs' },
-		// 	{ valueFont: '4', value: 4, suit: 'clubs' },
-		// 	{ valueFont: '3', value: 9, suit: 'clubs' },
-		// 	{ valueFont: '2', value: 8, suit: 'clubs' },]
+		// 	{ valueFont: '9', value: 12, suit: 'c' },
+		// 	{ valueFont: '8', value: 12, suit: 'c' },
+		// 	{ valueFont: '7', value: 6, suit: 'c' },
+		// 	{ valueFont: '6', value: 12, suit: 'clubs' },
+		// 	{ valueFont: '5', value: 9, suit: 'clubs' },
+		// 	{ valueFont: '4', value: 13, suit: 'clubs' },
+		// 	{ valueFont: '3', value: 3, suit: 'clubs' },
+		// ]
 
 		const result = this.compareHands(handOf7player1, handOf7player2)
 		console.log(result)
@@ -525,8 +527,8 @@ class App extends React.Component {
 			} else {
 				this.setState({
 					pot: 0,
-					player1money: player1money + choppedPot - player2bet,
-					player2money: player2money + choppedPot - player1bet,
+					player1money: player1money + choppedPot,
+					player2money: player2money + choppedPot,
 				});
 			}
 			this.setState({ actionInfo: 'Chop', });
