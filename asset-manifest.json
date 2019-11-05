@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/Heads-up-Hold-em/static/css/main.50cab528.chunk.css",
+    "main.css": "/Heads-up-Hold-em/static/css/main.cf37439c.chunk.css",
     "main.js": "/Heads-up-Hold-em/static/js/main.225f69b8.chunk.js",
     "main.js.map": "/Heads-up-Hold-em/static/js/main.225f69b8.chunk.js.map",
     "runtime~main.js": "/Heads-up-Hold-em/static/js/runtime~main.3991e70c.js",
@@ -8,8 +8,8 @@
     "static/js/2.8874910d.chunk.js": "/Heads-up-Hold-em/static/js/2.8874910d.chunk.js",
     "static/js/2.8874910d.chunk.js.map": "/Heads-up-Hold-em/static/js/2.8874910d.chunk.js.map",
     "index.html": "/Heads-up-Hold-em/index.html",
-    "precache-manifest.f9f32f1d1e5fc415ffb2b8170b25a840.js": "/Heads-up-Hold-em/precache-manifest.f9f32f1d1e5fc415ffb2b8170b25a840.js",
+    "precache-manifest.a8d3d0070738a9b997a2175cd687c30c.js": "/Heads-up-Hold-em/precache-manifest.a8d3d0070738a9b997a2175cd687c30c.js",
     "service-worker.js": "/Heads-up-Hold-em/service-worker.js",
-    "static/css/main.50cab528.chunk.css.map": "/Heads-up-Hold-em/static/css/main.50cab528.chunk.css.map"
+    "static/css/main.cf37439c.chunk.css.map": "/Heads-up-Hold-em/static/css/main.cf37439c.chunk.css.map"
   }
 }
