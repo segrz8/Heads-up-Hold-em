@@ -107,7 +107,7 @@ class App extends React.Component {
 		disabledPlayer2: true,
 		disabledShowdown: true,
 		timerActive: false,
-		timeToAct: 3000,
+		timeToAct: 60000,
 		dealCount: 1,
 		showPlayer2cards: false,
 		actionInfo: '',
