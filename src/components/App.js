@@ -107,7 +107,7 @@ class App extends React.Component {
 		disabledPlayer2: true,
 		disabledShowdown: true,
 		timerActive: false,
-		timeToAct: 60000,
+		timeToAct: 3000,
 		dealCount: 1,
 		showPlayer2cards: false,
 		actionInfo: '',
@@ -355,6 +355,7 @@ class App extends React.Component {
 		// Fix: Countdown starts only after p2 actually starts his turn
 		if (this.state.p2timerFix) this.setState({ p2timerFix: false });
 		else this.startCountdown()
+		// this.startCountdown()
 	}
 
 	setSlider = () => {
@@ -771,8 +772,8 @@ class App extends React.Component {
 	fold = () => {
 		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown } = this.state
 
-		clearTimeout(startCountdown)
 		this.setState({ timerActive: false });
+		clearTimeout(startCountdown)
 
 		// Fold
 		if (player1bet !== player2bet) {
@@ -928,8 +929,8 @@ class App extends React.Component {
 	call = () => {
 		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, smallBlindAmount, bigBlindAmount, disabledShowdown } = this.state
 
-		clearTimeout(startCountdown)
 		this.setState({ timerActive: false });
+		clearTimeout(startCountdown)
 
 		// AllIn call
 		if (player1bet === player2money + player2bet || player2bet === player1money + player1bet || player1money === 0 || player2money === 0) {
@@ -1056,10 +1057,13 @@ class App extends React.Component {
 				});
 				console.log('Call by player 1 oop')
 				this.animateCallChips()
-				setTimeout(() => {
-					this.startCountdown()
-				}, 0);
 
+				// Fix oop counter problem
+				if (stage !== 'river') {
+					setTimeout(() => {
+						this.startCountdown()
+					}, 0);
+				}
 			}
 			// Call by player 2 ip
 			else if ((player1bet > player2bet) && !dealerButtonPosition) {
@@ -1159,8 +1163,8 @@ class App extends React.Component {
 	bet = () => {
 		const { player1money, player1bet, disabled, disabledPlayer2, bet, bigBlindAmount } = this.state
 
-		clearTimeout(startCountdown)
 		this.setState({ timerActive: false });
+		clearTimeout(startCountdown)
 
 		if (bet < bigBlindAmount) {
 			alert(`The minimum bet is ${bigBlindAmount}`)
@@ -1220,8 +1224,8 @@ class App extends React.Component {
 	raise = () => {
 		const { player1money, player1bet, player2bet, disabled, disabledPlayer2, smallBlindAmount, bet, bigBlindAmount } = this.state
 
-		clearTimeout(startCountdown)
 		this.setState({ timerActive: false });
+		clearTimeout(startCountdown)
 
 		// Less than required but has to go allIn
 		if (bet === player1money + player1bet) {

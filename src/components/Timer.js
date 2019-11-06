@@ -3,7 +3,7 @@ import './Timer.css';
 
 class Timer extends React.Component {
     state = {
-        counter: 60,
+        counter: 3,
     }
 
     componentDidMount() {
