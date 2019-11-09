@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Timer from '../components/Timer'
 import OperatingButtons from './OperatingButtons';
 import PlayersHUDs from './PlayersHUDs';
 import Board from './Board';
@@ -9,23 +8,27 @@ import GameButtons from './GameButtons';
 import DealerButton from './DealerButton';
 import BettingOptions from './BettingOptions';
 import ActionInfo from './ActionInfo';
+import Timer from './Timer';
 
 import hearts from '../suitsImg/hearts.png'
 import spades from '../suitsImg/spades.png'
 import diamonds from '../suitsImg/diamonds.png'
 import clubs from '../suitsImg/clubs.png'
 
-// import Nails from '../sound/09 Cry Wolf.mp3'
 
-// const audioClips = [
-// 	{ Nails }
-// ]
+let finalizeShowdown
+let startCountdown
 
 const startMoney = 3000
 // const timeBeforeFold = 20000
 const timeBeforePlayer2acts = 1500
 
-// const nails = new Audio(NailsSound)
+
+// jeden przycisk new
+// animacje kart
+// kolory
+// dzwieki
+
 
 class App extends React.Component {
 	state = {
@@ -107,11 +110,12 @@ class App extends React.Component {
 		disabledDeal: false,
 		disabledPlayer2: true,
 		disabledShowdown: true,
-		// timerActive: false,
-		// timeToAct: 10,
+		timerActive: false,
+		timeToAct: 60000,
 		dealCount: 1,
 		showPlayer2cards: false,
 		actionInfo: '',
+		p2timerFix: false,
 	}
 
 	dealCards = () => {
@@ -134,12 +138,8 @@ class App extends React.Component {
 				setTimeout(() => {
 					this.player2turn()
 				}, timeBeforePlayer2acts);
-				// } else {
-				// 	this.setState({ timerActive: true });
-				// 	setTimeout(() => {
-				// 		this.fold()
-				// 		this.setState({ timerActive: false });
-				// 	}, 5000);
+			} else {
+				this.startCountdown()
 			}
 
 			// Shuffling the deck
@@ -195,6 +195,17 @@ class App extends React.Component {
 	// 		this.setState({ timerActive: false });
 	// 	}, this.state.timeToAct * 1000);
 	// }
+
+	startCountdown = () => {
+		this.setState({
+			timerActive: true,
+			// timeToAct: 60000,
+		});
+		startCountdown = setTimeout(() => {
+			this.fold()
+			this.setState({ timerActive: false });
+		}, this.state.timeToAct);
+	}
 
 	player2turn = () => {
 		// this.setState({ timerActive: true });
@@ -338,6 +349,11 @@ class App extends React.Component {
 		}
 		// Set slider
 		this.setSlider()
+
+		// Fix: Countdown starts only after p2 actually starts his turn
+		if (this.state.p2timerFix) this.setState({ p2timerFix: false });
+		else this.startCountdown()
+		// this.startCountdown()
 	}
 
 	setSlider = () => {
@@ -348,18 +364,39 @@ class App extends React.Component {
 	}
 
 	showCards = () => {
-		const { dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown, dealerButtonPosition } = this.state
+		const { dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown, dealerButtonPosition, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river, stage } = this.state
 
-		const handOf7player1 = [this.state.player1card1, this.state.player1card2, this.state.flop1, this.state.flop2, this.state.flop3, this.state.turn, this.state.river]
+		this.setState({ timerActive: false });
 
-		const handOf7player2 = [this.state.player2card1, this.state.player2card2, this.state.flop1, this.state.flop2, this.state.flop3, this.state.turn, this.state.river]
+		const handOf7player1 = [player1card1, player1card2, flop1, flop2, flop3, turn, river]
+		const handOf7player2 = [player2card1, player2card2, flop1, flop2, flop3, turn, river]
+
+		// const handOf7player1 = [
+		// 	{ valueFont: '9', value: 12, suit: 'c' },
+		// 	{ valueFont: '8', value: 12, suit: 'c' },
+		// 	{ valueFont: '7', value: 6, suit: 'c' },
+		// 	{ valueFont: '6', value: 12, suit: 'clubs' },
+		// 	{ valueFont: '5', value: 9, suit: 'clubs' },
+		// 	{ valueFont: '4', value: 13, suit: 'clubs' },
+		// 	{ valueFont: '3', value: 3, suit: 'clubs' },
+		// ]
+		// const handOf7player2 = [
+		// 	{ valueFont: '9', value: 12, suit: 'c' },
+		// 	{ valueFont: '8', value: 12, suit: 'c' },
+		// 	{ valueFont: '7', value: 6, suit: 'c' },
+		// 	{ valueFont: '6', value: 12, suit: 'clubs' },
+		// 	{ valueFont: '5', value: 9, suit: 'clubs' },
+		// 	{ valueFont: '4', value: 13, suit: 'clubs' },
+		// 	{ valueFont: '3', value: 3, suit: 'clubs' },
+		// ]
 
 		const result = this.compareHands(handOf7player1, handOf7player2)
 		console.log(result)
 
 		this.showdown(result)
+		this.animateCallChips('fold')
 
-		setTimeout(() => {
+		finalizeShowdown = setTimeout(() => {
 			this.setState({
 				player1bet: 0,
 				player2bet: 0,
@@ -376,16 +413,16 @@ class App extends React.Component {
 				turn: null,
 				river: null,
 				disabledPlayer2: true,
+				actionInfo: '',
 			});
-			this.animateCallChips('fold')
-		}, 3000);
+			this.dealCards()
+		}, 300000);
 
+		// setTimeout(() => {
+		// 	this.setState({ actionInfo: '' });
+		// }, 3000);
 
-		setTimeout(() => {
-			this.setState({ actionInfo: '' });
-		}, 3000);
-
-		if (this.state.stage === 'river') {
+		if (stage === 'river') {
 			this.setState({
 				pot: 0,
 			});
@@ -400,13 +437,49 @@ class App extends React.Component {
 		}
 		this.setState({ dealCount: dealCount + 1 });
 
+		// setTimeout(() => {
+		// 	this.dealCards()
+		// }, 3000);
+
+		// if (player1money === 0 || player2money === 0) {
+		// 	this.setState({
+		// 		disabledDeal: false,
+		// 	});
+		// }
+	}
+
+	newHand = () => {
+		const { disabledShowdown, dealerButtonPosition } = this.state
+
+		clearTimeout(finalizeShowdown)
+
+		this.setState({
+			player1bet: 0,
+			player2bet: 0,
+			disabledShowdown: !disabledShowdown,
+			dealerButtonPosition: !dealerButtonPosition,
+			player1card1: null,
+			player1card2: null,
+			player2card1: null,
+			player2card2: null,
+			stage: 'preFlop',
+			flop1: null,
+			flop2: null,
+			flop3: null,
+			turn: null,
+			river: null,
+			disabledPlayer2: true,
+			actionInfo: '',
+		});
 		setTimeout(() => {
 			this.dealCards()
-		}, 3000);
+		}, 100);
+
 	}
 
 	showdown = (result) => {
 		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot } = this.state
+
 		if (result === 'player1won') {
 			if (player1bet >= player2bet) {
 				this.setState({
@@ -453,14 +526,17 @@ class App extends React.Component {
 			} else {
 				this.setState({
 					pot: 0,
-					player1money: player1money + choppedPot - player2bet,
-					player2money: player2money + choppedPot - player1bet,
+					player1money: player1money + choppedPot,
+					player2money: player2money + choppedPot,
 				});
 			}
 			this.setState({ actionInfo: 'Chop', });
 			console.log(choppedPot)
 		}
-
+		this.setState({
+			player1bet: 0,
+			player2bet: 0,
+		});
 	}
 
 	evaluateHand = (hand) => {
@@ -577,7 +653,9 @@ class App extends React.Component {
 							for (let j = 0; j < possibleHandsOf5.length; j++) {
 								const checkIfStraight = JSON.stringify(straights[i]) === JSON.stringify(possibleHandsOf5[j])
 								if (checkIfStraight) {
+									result.push('straight')
 									score.push(4, straights[i][0])
+									score.slice(0, 2)
 									return score
 									// Score for Ace low straight
 								} else if (
@@ -588,44 +666,48 @@ class App extends React.Component {
 									hand7valuesSorted.includes(2)) {
 									score = [4, 5]
 									return score
-									// Check for trips and determine kickers
-								} else {
-									if (result.includes('trips')) {
-										const allButTripsValues = allButTrips.map(card => card.value)
-										const kickersTrips = allButTripsValues.sort(function (a, b) { return b - a })
-										score.push(3, tripsValue, ...kickersTrips.slice(0, 2))
-										return score
-										// Check for two pairs
-									} else {
-										for (let i = 0; i < values.length; i++) {
-											const checkIfPair = hand.filter(card => card.value === values[i]).length === 2
-											if (checkIfPair && score.length < 2) {
-												score.push(values[i])
-											}
-										}
-
-										if (score.length === 2) {
-											const firstPair = score[0]
-											const secondPair = score[1]
-											const removeFirstPair = hand7valuesSorted.filter(card => card !== firstPair)
-											const removeSecondPair = removeFirstPair.filter(card => card !== secondPair)
-											score.push(removeSecondPair[0])
-											score.unshift(2)
-											return score
-											// Check for only one pair
-										} else if (score.length === 1) {
-											const firstPair = score[0]
-											const removeFirstPair = hand7valuesSorted.filter(card => card !== firstPair)
-											score.push(...removeFirstPair.slice(0, 3))
-											score.unshift(1)
-											return score
-											// Check for high card
-										} else {
-											const kickers = hand7valuesSorted.slice(0, 5)
-											score.push(0, ...kickers)
-											return score
-										}
+								}
+							}
+						}
+						if (result.includes('straight')) {
+							return score
+						}
+						// Check for trips and determine kickers
+						else {
+							if (result.includes('trips')) {
+								const allButTripsValues = allButTrips.map(card => card.value)
+								const kickersTrips = allButTripsValues.sort(function (a, b) { return b - a })
+								score.push(3, tripsValue, ...kickersTrips.slice(0, 2))
+								return score
+								// Check for two pairs
+							} else {
+								for (let i = 0; i < values.length; i++) {
+									const checkIfPair = hand.filter(card => card.value === values[i]).length === 2
+									if (checkIfPair && score.length < 2) {
+										score.push(values[i])
 									}
+								}
+
+								if (score.length === 2) {
+									const firstPair = score[0]
+									const secondPair = score[1]
+									const removeFirstPair = hand7valuesSorted.filter(card => card !== firstPair)
+									const removeSecondPair = removeFirstPair.filter(card => card !== secondPair)
+									score.push(removeSecondPair[0])
+									score.unshift(2)
+									return score
+									// Check for only one pair
+								} else if (score.length === 1) {
+									const firstPair = score[0]
+									const removeFirstPair = hand7valuesSorted.filter(card => card !== firstPair)
+									score.push(...removeFirstPair.slice(0, 3))
+									score.unshift(1)
+									return score
+									// Check for high card
+								} else {
+									const kickers = hand7valuesSorted.slice(0, 5)
+									score.push(0, ...kickers)
+									return score
 								}
 							}
 						}
@@ -687,6 +769,10 @@ class App extends React.Component {
 
 	fold = () => {
 		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown } = this.state
+
+		this.setState({ timerActive: false });
+		clearTimeout(startCountdown)
+
 		// Fold
 		if (player1bet !== player2bet) {
 			this.setState({
@@ -733,7 +819,12 @@ class App extends React.Component {
 					player1money: pot + player1money + player1bet + player2bet,
 					pot: 0,
 					disabledPlayer2: !disabledPlayer2,
-					actionInfo: 'Opponent Folds'
+
+					actionInfo: 'Opponent Folds',
+
+					// Fix the timer at p2fold
+					p2timerFix: true
+
 				});
 				setTimeout(() => {
 					this.setState({ actionInfo: '' });
@@ -780,6 +871,9 @@ class App extends React.Component {
 						// disabledPlayer2: true,
 						showPlayer2cards: true,
 					});
+					setTimeout(() => {
+						this.showCards()
+					}, 100);
 				}
 
 				console.log('Check and go to next street')
@@ -840,6 +934,9 @@ class App extends React.Component {
 	call = () => {
 		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, stage, shuffledDeck, smallBlindAmount, bigBlindAmount, disabledShowdown } = this.state
 
+		this.setState({ timerActive: false });
+		clearTimeout(startCountdown)
+
 		// AllIn call
 		if (player1bet === player2money + player2bet || player2bet === player1money + player1bet || player1money === 0 || player2money === 0) {
 			if (stage === 'preFlop') {
@@ -865,6 +962,9 @@ class App extends React.Component {
 				// disabledPlayer2: true,
 				showPlayer2cards: true,
 			});
+			setTimeout(() => {
+				this.showCards()
+			}, 100);
 
 			this.showCards()
 
@@ -964,6 +1064,13 @@ class App extends React.Component {
 				});
 				console.log('Call by player 1 oop')
 				this.animateCallChips()
+
+				// Fix oop counter problem
+				if (stage !== 'river') {
+					setTimeout(() => {
+						this.startCountdown()
+					}, 0);
+				}
 			}
 			// Call by player 2 ip
 			else if ((player1bet > player2bet) && !dealerButtonPosition) {
@@ -1036,6 +1143,9 @@ class App extends React.Component {
 					// disabledPlayer2: true,
 					showPlayer2cards: true,
 				});
+				setTimeout(() => {
+					this.showCards()
+				}, 100);
 			}
 
 			if (player1money !== 0 && player2money !== 0) {
@@ -1059,6 +1169,9 @@ class App extends React.Component {
 
 	bet = () => {
 		const { player1money, player1bet, disabled, disabledPlayer2, bet, bigBlindAmount } = this.state
+
+		this.setState({ timerActive: false });
+		clearTimeout(startCountdown)
 
 		if (bet < bigBlindAmount) {
 			alert(`The minimum bet is ${bigBlindAmount}`)
@@ -1117,6 +1230,9 @@ class App extends React.Component {
 
 	raise = () => {
 		const { player1money, player1bet, player2bet, disabled, disabledPlayer2, smallBlindAmount, bet, bigBlindAmount } = this.state
+
+		this.setState({ timerActive: false });
+		clearTimeout(startCountdown)
 
 		// Less than required but has to go allIn
 		if (bet === player1money + player1bet) {
@@ -1288,7 +1404,7 @@ class App extends React.Component {
 	}
 
 	render() {
-		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, disabledShowdown, smallBlindAmount, bet, bigBlindAmount, disabledDeal, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river, showPlayer2cards, actionInfo } = this.state
+		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot, disabled, disabledPlayer2, disabledShowdown, smallBlindAmount, bet, bigBlindAmount, disabledDeal, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river, showPlayer2cards, actionInfo, timerActive } = this.state
 
 		return (
 			<div className="wrapAndRotateInfo" >
@@ -1297,14 +1413,16 @@ class App extends React.Component {
 						actionInfo={actionInfo}
 					/>
 					<OperatingButtons
+						disabledPlayer2={disabledPlayer2}
+						disabledShowdown={disabledShowdown}
+
 						dealCards={this.dealCards}
 						player2turn={this.player2turn}
 						showCards={this.showCards}
-						disabledPlayer2={disabledPlayer2}
-						disabledShowdown={disabledShowdown}
 						disabledDeal={disabledDeal}
+						newHand={this.newHand}
 					/>
-					{this.state.timerActive && <Timer />}
+					{timerActive && <Timer />}
 					<div className="table">
 						<PlayersHUDs
 							player1money={player1money}
@@ -1358,14 +1476,15 @@ class App extends React.Component {
 						bigBlindAmount={bigBlindAmount}
 						smallBlindAmount={smallBlindAmount}
 						disabled={disabled}
-						betAmountChange={this.betAmountChange}
 						player1money={player1money}
+
+						betAmountChange={this.betAmountChange}
 						allIn={this.allIn}
 						betIncreaseDecrease={this.betIncreaseDecrease}
 					/>
 				</div>
 				{/* When orientation: portrait */}
-				<h1 className="rotateInfo" > Please rotate the device</h1>
+				<h1 className="rotateInfo" > Please rotate <br />the device</h1>
 			</div >
 		);
 	}

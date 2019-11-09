@@ -3,7 +3,7 @@ import './Timer.css';
 
 class Timer extends React.Component {
     state = {
-        counter: 5,
+        counter: 60,
     }
 
     componentDidMount() {
@@ -21,8 +21,9 @@ class Timer extends React.Component {
     }
 
     render() {
+        const { counter } = this.state
         return (
-            <p className="timer">Time to Act: {this.state.counter}</p>
+            <p className="timer">Time to Act: {counter >= 10 ? counter : `0${counter}`}</p>
         );
     }
 }

@@ -20,6 +20,10 @@
     color: black;
 }
 
+/* .newGame {
+    background-color: goldenrod !important;
+} */
+
 @media (min-width:730px) {
     .operatingButtons {
         width: 150px;

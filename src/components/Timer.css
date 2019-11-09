@@ -1,5 +1,6 @@
 .timer {
     position: absolute;
+    width: 150px;
     top: 5px;
     left: 5px;
     color: white;
@@ -8,5 +9,15 @@
     z-index: 1;
     border: 2px solid rgb(177, 55, 55);
     padding: 8px;
+    text-transform: uppercase;
     /* animation-name: example;animation-duration: 4s; */
+}
+
+@media (min-width:1024px) {
+    .timer {
+        font-size: 32px;
+        top: 130px;
+        left: 100px;
+        width: 250px;
+    }
 }
