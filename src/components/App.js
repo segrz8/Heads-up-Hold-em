@@ -116,6 +116,7 @@ class App extends React.Component {
 		showPlayer2cards: false,
 		actionInfo: '',
 		p2timerFix: false,
+		blockP2afterShowdown: false,
 	}
 
 	dealCards = () => {
@@ -167,6 +168,7 @@ class App extends React.Component {
 				disabledDeal: true,
 				disabledPlayer2: dealerButtonPosition ? true : !disabledPlayer2,
 				showPlayer2cards: false,
+				blockP2afterShowdown: false,
 			})
 
 			// if (dealerButtonPosition) {
@@ -214,7 +216,7 @@ class App extends React.Component {
 		// 	this.setState({ timerActive: false });
 		// }, 5000);
 
-		const { player1money, player2money, player1bet, player2bet, stage, dealerButtonPosition, player2card1, player2card2, flop1, flop2, flop3, turn, river, bigBlindAmount } = this.state
+		const { player1money, player2money, player1bet, player2bet, stage, dealerButtonPosition, player2card1, player2card2, flop1, flop2, flop3, turn, river, bigBlindAmount, blockP2afterShowdown } = this.state
 
 		const handOf7player2 = [player2card1, player2card2, flop1, flop2, flop3, turn, river]
 
@@ -352,8 +354,7 @@ class App extends React.Component {
 
 		// Fix: Countdown starts only after p2 actually starts his turn
 		if (this.state.p2timerFix) this.setState({ p2timerFix: false });
-		else this.startCountdown()
-		// this.startCountdown()
+		else if (!blockP2afterShowdown) this.startCountdown()
 	}
 
 	setSlider = () => {
@@ -366,7 +367,9 @@ class App extends React.Component {
 	showCards = () => {
 		const { dealCount, smallBlindAmount, bigBlindAmount, disabledShowdown, dealerButtonPosition, player1card1, player1card2, player2card1, player2card2, flop1, flop2, flop3, turn, river, stage } = this.state
 
-		this.setState({ timerActive: false });
+		this.setState({
+			timerActive: false,
+		});
 
 		const handOf7player1 = [player1card1, player1card2, flop1, flop2, flop3, turn, river]
 		const handOf7player2 = [player2card1, player2card2, flop1, flop2, flop3, turn, river]
@@ -406,7 +409,7 @@ class App extends React.Component {
 				player1card2: null,
 				player2card1: null,
 				player2card2: null,
-				stage: 'preFlop',
+				stage: 'preflop',
 				flop1: null,
 				flop2: null,
 				flop3: null,
@@ -823,8 +826,7 @@ class App extends React.Component {
 					actionInfo: 'Opponent Folds',
 
 					// Fix the timer at p2fold
-					p2timerFix: true
-
+					p2timerFix: true,
 				});
 				setTimeout(() => {
 					this.setState({ actionInfo: '' });
@@ -870,7 +872,9 @@ class App extends React.Component {
 						disabled: true,
 						// disabledPlayer2: true,
 						showPlayer2cards: true,
+						blockP2afterShowdown: true,
 					});
+
 					setTimeout(() => {
 						this.showCards()
 					}, 100);
@@ -883,7 +887,6 @@ class App extends React.Component {
 					setTimeout(() => {
 						this.player2turn()
 					}, timeBeforePlayer2acts);
-					// console.log('w')
 				}
 
 				// Check after limp and go to next street
@@ -961,12 +964,12 @@ class App extends React.Component {
 				disabledShowdown: !disabledShowdown,
 				// disabledPlayer2: true,
 				showPlayer2cards: true,
+				// stage: 'showdown',
+				blockP2afterShowdown: true,
 			});
 			setTimeout(() => {
 				this.showCards()
 			}, 100);
-
-			this.showCards()
 
 			console.log('allin call')
 			this.animateCallChips()
