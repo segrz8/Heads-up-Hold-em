@@ -436,7 +436,7 @@ class App extends React.Component {
 	}
 
 	showdown = (result) => {
-		const { player1money, player2money, player1bet, player2bet, dealerButtonPosition, pot } = this.state
+		const { player1money, player2money, player1bet, player2bet, pot } = this.state
 
 		if (result === 'player1won') {
 			// Not allin or p2 is covered
@@ -473,23 +473,50 @@ class App extends React.Component {
 				actionInfo: 'You lose',
 			});
 		} else if (result === 'chop') {
-			const choppedPot = player1bet > player2bet ? (pot + player1bet * 2) / 2 : (pot + player2bet * 2) / 2
-			let forBB = 0
-			let forSB = 0
+			// const choppedPot = player1bet > player2bet ? (pot + player1bet * 2) / 2 : (pot + player2bet * 2) / 2
 
-			if (!Number.isInteger(choppedPot)) {
-				forBB = choppedPot + .5
-				forSB = choppedPot - .5
+			// let choppedPot = 0
+
+			// let choppedPotP1 = 0
+			// let choppedPotP2 = 0
+
+			if (player1bet === player2bet) {
 				this.setState({
-					player1money: dealerButtonPosition ? player1money + forSB - player2bet : player1money + forBB - player2bet,
-					player2money: !dealerButtonPosition ? player2money + forSB - player1bet : player2money + forBB - player1bet,
-				});
-			} else {
-				this.setState({
-					player1money: player1money + choppedPot,
-					player2money: player2money + choppedPot,
+					player1money: player1money + pot / 2 + player1bet,
+					player2money: player2money + pot / 2 + player1bet,
 				});
 			}
+			else if (player1bet < player2bet) {
+				this.setState({
+					player1money: pot / 2 + player1bet,
+					player2money: player2money + pot / 2 + player2bet,
+				});
+			}
+			else if (player1bet > player2bet) {
+				this.setState({
+					player1money: player1money + pot / 2 + player1bet,
+					player2money: pot / 2 + player2bet,
+				});
+			}
+
+			// else if (player1bet > player2bet) choppedPot = (pot + player2bet * 2 / 2)
+
+			// let forBB = 0
+			// let forSB = 0
+
+			// if (!Number.isInteger(choppedPot)) {
+			// 	forBB = choppedPot + .5
+			// 	forSB = choppedPot - .5
+			// 	this.setState({
+			// 		player1money: dealerButtonPosition ? player1money + forSB - player2bet : player1money + forBB - player2bet,
+			// 		player2money: !dealerButtonPosition ? player2money + forSB - player1bet : player2money + forBB - player1bet,
+			// 	});
+			// } else {
+			// 	this.setState({
+			// 		player1money: player1money + choppedPot + player1bet,
+			// 		player2money: player2money + choppedPot + player2bet,
+			// 	});
+			// }
 			this.setState({ actionInfo: 'Chop', });
 		}
 		this.setState({
@@ -1032,6 +1059,21 @@ class App extends React.Component {
 				}, timeBeforePlayer2acts);
 			}
 
+			// Player2 is allIn (don't call more than stack)
+			if (player2money === 0) {
+				this.setState({
+					player1bet: player1money + player1bet,
+					player1money: 0
+				});
+			}
+			// Player1 is allIn (don't call more than stack)
+			else if (player1money === 0) {
+				this.setState({
+					player1bet: player2money + player2bet,
+					player2money: 0
+				});
+			}
+
 			// Go to flop
 			if ((stage === 'preFlop') && (player1bet !== smallBlindAmount) && (player2bet !== smallBlindAmount)) {
 				this.setState({
@@ -1221,7 +1263,7 @@ class App extends React.Component {
 		}
 		else if (type === '-') {
 			// Prevent from going below 0
-			if (bet <= 0) return
+			if (bet <= bigBlindAmount) return
 			// Standard
 			else this.setState({ bet: Number(bet) - bigBlindAmount });
 		}
