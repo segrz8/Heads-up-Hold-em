@@ -17,7 +17,6 @@ function GameButtons(props) {
                 onClick={call}
             >
                 Call
-                {/* {disabled ? null : (player2bet === 0 ? null : player2bet)} */}
             </button>
 
             {player1bet === 0 && player2bet === 0 ?

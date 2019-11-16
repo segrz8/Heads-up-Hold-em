@@ -8,7 +8,6 @@ function BetInput(props) {
             className="amount"
             type="number"
             value={bet}
-            // min={player1bet === player2bet ? bigBlindAmount : player1bet}
             min={player2bet * 2 - player1bet}
             max={player1money + player1bet}
             onChange={betAmountChange}

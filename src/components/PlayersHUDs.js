@@ -26,13 +26,9 @@ function PlayersHUDs(props) {
                     <div className={`card card1 ${renderCard(player2card1)}`}>{<div><p>{player2card1.valueFont}</p> <div className="suit"><img src={determineSuit(player2card1.suit)} alt="suit" /></div></div>}</div> :
                     <div className={"cardBack card1"}></div>}
 
-                {/* <div className={`card card1 ${renderCard(player2card1)}`}>{<div><p>{player2card1.valueFont}</p> <div className="suit"><img src={determineSuit(player2card1.suit)} alt="suit" /></div></div>}</div> */}
-
                 {showPlayer2cards ?
                     <div className={`card card2 ${renderCard(player2card2)}`}>{<div><p>{player2card2.valueFont}</p> <div className="suit"><img src={determineSuit(player2card2.suit)} alt="suit" /></div></div>}</div> :
                     <div className={"cardBack card2"}></div>}
-
-                {/* <div className={`card card2 ${renderCard(player2card2)}`}>{<div><p>{player2card2.valueFont}</p> <div className="suit"><img src={determineSuit(player2card2.suit)} alt="suit" /></div></div>}</div> */}
             </div>
         </div>
     )
