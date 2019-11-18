@@ -4,20 +4,20 @@
     right: 5px;
     z-index: 1;
     width: 110px;
-}
 
-.gameButtons button {
-    height: 35px;
-    width: 110px;
-    border: solid 2px rgb(255, 255, 255);
-    text-transform: uppercase;
-    font-weight: bold;
-    background-color: rgb(168, 43, 43)
-}
+    &__btnStandard {
+        height: 35px;
+        width: 110px;
+        border: solid 2px rgb(255, 255, 255);
+        text-transform: uppercase;
+        font-weight: bold;
+        background-color: rgb(168, 43, 43);
 
-.gameButtons button:disabled {
-    background-color: gray;
-    color: black;
+        &:disabled {
+            background-color: gray;
+            color: black;
+        }
+    }
 }
 
 @media (min-width:730px) {

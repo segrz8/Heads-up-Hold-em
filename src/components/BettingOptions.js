@@ -7,7 +7,7 @@ function BettingOptions(props) {
     const { player1money, player1bet, player2bet, disabled, smallBlindAmount, bet, bigBlindAmount, betAmountChange, allIn, betIncreaseDecrease } = props
     return (
         <div className="bet">
-            <div className="inputAndAllIn">
+            <div className="bet__inputAndAllIn">
                 <BetInput
                     bet={bet}
                     player1bet={player1bet}
@@ -19,14 +19,14 @@ function BettingOptions(props) {
                     player1money={player1money}
                 />
                 <button
-                    className="allIn"
+                    className="bet__allIn"
                     disabled={disabled}
                     onClick={allIn}
                 >All-In</button>
             </div>
-            <div className="sliderAndPlusMinus">
+            <div className="bet__sliderAndPlusMinus">
                 <button
-                    className="betMinus"
+                    className="bet__betMinus"
                     disabled={disabled}
                     onClick={() => betIncreaseDecrease('-')}
                 >-</button>
@@ -40,7 +40,7 @@ function BettingOptions(props) {
                     bet={bet}
                 />
                 <button
-                    className="betPlus"
+                    className="bet__betPlus"
                     disabled={disabled}
                     onClick={() => betIncreaseDecrease('+')}
                 >+</button>

@@ -6,41 +6,37 @@
     left: 5px;
     height: 70px;
     width: 150px;
-    background-color: rgb(73, 73, 73);
     border: 2px solid white;
-    margin-top: auto;
-    background-color: #fff;
-}
+    // margin-top: auto;
+    background-color: white;
 
-.inputAndAllIn {
-    display: flex;
-    flex: 1;
-}
+    &__inputAndAllIn {
+        display: flex;
+        flex: 1;
+    }
 
-.sliderAndPlusMinus {
-    display: flex;
-    flex: 1;
-}
+    &__sliderAndPlusMinus {
+        display: flex;
+        flex: 1;
+    }
 
-.bet button {
-    border: solid 2px rgb(255, 255, 255);
-    text-transform: uppercase;
-    font-weight: bold;
-    background-color: rgb(168, 43, 43)
-}
+    &__allIn,
+    &__betMinus,
+    &__betPlus {
+        flex: 1;
+    }
 
-.allIn {
-    flex: 1;
-}
+    button {
+        border: solid 2px white;
+        text-transform: uppercase;
+        font-weight: bold;
+        background-color: rgb(168, 43, 43);
 
-.betMinus,
-.betPlus {
-    flex: 1;
-}
-
-.bet button:disabled {
-    background-color: gray;
-    color: black;
+        &:disabled {
+            background-color: gray;
+            color: black;
+        }
+    }
 }
 
 @media(min-width:730px) {

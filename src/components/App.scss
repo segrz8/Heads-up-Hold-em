@@ -10,14 +10,14 @@ body {
     overflow: hidden;
 }
 
-.wrap {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+// .wrap {
+//     position: absolute;
+//     width: 100%;
+//     height: 100%;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+// }
 
 .table {
     position: absolute;
@@ -32,7 +32,6 @@ body {
     margin: auto;
     border-radius: 200px;
     box-shadow: inset 0 3px 55px rgba(0, 0, 0, .8);
-    /* background-image: url(../suitsImg/hearts.png); */
 }
 
 button {
@@ -45,21 +44,24 @@ button {
 .card {
     border-radius: 7px;
     box-shadow: inset 0 3px 10px rgba(175, 157, 57, 0.7);
-    font-family: 'Alegreya', serif;
+    // font-family: 'Alegreya', serif;
     background-color: white;
     border: 3px solid black;
     flex-grow: 1;
     max-width: 50px;
 }
 
-.cardBack {
-    border-radius: 7px;
-    box-shadow: inset 0 3px 10px rgba(175, 157, 57, 0.7);
-    font-family: 'Alegreya', serif;
-    background-color: rgb(92, 27, 27);
-    border: 3px solid black;
-    flex-grow: 1;
-    max-width: 50px;
+.red {
+    color: rgb(214, 37, 37);
+}
+
+.suit {
+    height: 28px;
+    background-repeat: no-repeat;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 55%;
 }
 
 .card p {
@@ -68,9 +70,9 @@ button {
     text-align: center;
 }
 
-.suitFont {
-    font-family: Cards;
-}
+// .suitFont {
+    //     font-family: Cards;
+    // }
 
 .rotateInfo {
     display: none;

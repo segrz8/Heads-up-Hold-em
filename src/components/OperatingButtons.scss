@@ -3,26 +3,21 @@
     top: 5px;
     right: 5px;
     z-index: 1;
-    width: 110px;
-}
 
-.operatingButtons button {
-    height: 35px;
-    width: 110px;
-    border: solid 2px rgb(255, 255, 255);
-    text-transform: uppercase;
-    font-weight: bold;
-    background-color: rgb(168, 43, 43);
-}
+    &__btnStandard {
+        height: 35px;
+        width: 110px;
+        border: solid 2px white;
+        text-transform: uppercase;
+        font-weight: bold;
+        background-color: rgb(168, 43, 43);
 
-.operatingButtons button:disabled {
-    background-color: gray;
-    color: black;
+        &:disabled {
+            background-color: gray;
+            color: black;
+        }
+    }
 }
-
-/* .newGame {
-    background-color: goldenrod !important;
-} */
 
 @media (min-width:730px) {
     .operatingButtons {

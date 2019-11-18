@@ -7,6 +7,40 @@
     bottom: 0;
     margin-left: auto;
     margin-right: auto;
+
+    &__stack1 {
+        position: absolute;
+        background-color: white;
+        width: 50px;
+        height: 40px;
+        bottom: 0;
+        left: 0;
+        border: 3px solid black;
+        border-radius: 5px;
+        text-align: center;
+        background-color: rgb(223, 214, 189);
+        font-weight: bold;
+    }
+
+    .card1 {
+        position: absolute;
+        background-color: white;
+        width: 50px;
+        height: 70px;
+        top: 0;
+        right: 50px;
+        border: 3px solid black;
+    }
+
+    .card2 {
+        position: absolute;
+        background-color: white;
+        width: 50px;
+        height: 70px;
+        top: 0;
+        right: 0;
+        border: 3px solid black;
+    }
 }
 
 .player2 {
@@ -18,88 +52,48 @@
     top: 0;
     margin-left: auto;
     margin-right: auto;
-}
 
-.player1 .card1 {
-    position: absolute;
-    background-color: white;
-    width: 50px;
-    height: 70px;
-    top: 0;
-    right: 50px;
-    border: 3px solid black;
-}
+    &__stack2 {
+        position: absolute;
+        background-color: white;
+        width: 50px;
+        height: 40px;
+        top: 0;
+        right: 0;
+        border: 3px solid black;
+        border-radius: 5px;
+        text-align: center;
+        background-color: rgb(223, 214, 189);
+        font-weight: bold;
+    }
 
-.player1 .card2 {
-    position: absolute;
-    background-color: white;
-    width: 50px;
-    height: 70px;
-    top: 0;
-    right: 0;
-    border: 3px solid black;
-}
+    .card1 {
+        position: absolute;
+        width: 50px;
+        height: 70px;
+        top: 0;
+        left: 0;
+        border: 3px solid black;
+    }
 
-.player2 .card1 {
-    position: absolute;
-    /* background-color: white; */
-    width: 50px;
-    height: 70px;
-    top: 0;
-    left: 0;
-    border: 3px solid black;
-}
+    .card2 {
+        position: absolute;
+        width: 50px;
+        height: 70px;
+        top: 0;
+        left: 50px;
+        border: 3px solid black;
+    }
 
-.player2 .card2 {
-    position: absolute;
-    /* background-color: white; */
-    width: 50px;
-    height: 70px;
-    top: 0;
-    left: 50px;
-    border: 3px solid black;
-}
-
-.red {
-    color: rgb(214, 37, 37);
-}
-
-.stack1 {
-    position: absolute;
-    background-color: white;
-    width: 50px;
-    height: 40px;
-    bottom: 0;
-    left: 0;
-    border: 3px solid black;
-    border-radius: 5px;
-    text-align: center;
-    background-color: rgb(223, 214, 189);
-    font-weight: bold;
-}
-
-.stack2 {
-    position: absolute;
-    background-color: white;
-    width: 50px;
-    height: 40px;
-    top: 0;
-    right: 0;
-    border: 3px solid black;
-    border-radius: 5px;
-    text-align: center;
-    background-color: rgb(223, 214, 189);
-    font-weight: bold;
-}
-
-.suit {
-    /* background-image: url('../suitsImg/heart.png'); */
-    height: 28px;
-    background-repeat: no-repeat;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 55%;
+    &__cardBack {
+        border-radius: 7px;
+        box-shadow: inset 0 3px 10px rgba(144, 132, 59, 0.7);
+        font-family: 'Alegreya', serif;
+        background-color: rgb(100, 27, 27);
+        border: 3px solid black;
+        flex-grow: 1;
+        max-width: 50px;
+    }
 }
 
 @media(min-width:730px) {

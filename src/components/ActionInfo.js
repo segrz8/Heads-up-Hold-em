@@ -4,7 +4,9 @@ import './ActionInfo.scss';
 function ActionInfo(props) {
     const { actionInfo } = props
     return (
-        <p className="actionInfo">{actionInfo}</p>
+        <div className="actionInfo">
+            <p>{actionInfo}</p>
+        </div>
     )
 }
 
