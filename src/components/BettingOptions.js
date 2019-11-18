@@ -1,7 +1,7 @@
 import React from 'react'
 import BetInput from './BetInput';
 import BetSlider from './BetSlider';
-import './BettingOptions.css'
+import './BettingOptions.scss'
 
 function BettingOptions(props) {
     const { player1money, player1bet, player2bet, disabled, smallBlindAmount, bet, bigBlindAmount, betAmountChange, allIn, betIncreaseDecrease } = props

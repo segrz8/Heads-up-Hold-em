@@ -1,5 +1,5 @@
 import React from 'react'
-import './OperatingButtons.css';
+import './OperatingButtons.scss';
 
 function OperatingButtons(props) {
 

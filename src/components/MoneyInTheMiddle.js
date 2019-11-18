@@ -1,5 +1,5 @@
 import React from 'react'
-import './MoneyInTheMiddle.css'
+import './MoneyInTheMiddle.scss'
 
 function MoneyInTheMiddle(props) {
     const { player1bet, player2bet, pot } = props

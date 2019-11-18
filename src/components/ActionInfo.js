@@ -1,5 +1,5 @@
 import React from 'react'
-import './ActionInfo.css';
+import './ActionInfo.scss';
 
 function ActionInfo(props) {
     const { actionInfo } = props

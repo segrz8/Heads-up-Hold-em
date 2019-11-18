@@ -1,5 +1,5 @@
 import React from 'react'
-import './GameButtons.css'
+import './GameButtons.scss'
 
 function GameButtons(props) {
     const { player2money, player1bet, player2bet, disabled, bet, fold, call, raise, betRaiseAllIn, player1money } = props

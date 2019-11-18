@@ -1,5 +1,5 @@
 import React from 'react'
-import './PlayersHUDs.css'
+import './PlayersHUDs.scss'
 
 function PlayersHUDs(props) {
     const { player1money, player2money, player1card1, player1card2, player2card1, player2card2, renderCard, determineSuit, showPlayer2cards } = props

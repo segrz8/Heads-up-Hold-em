@@ -1,5 +1,5 @@
 import React from 'react'
-import './BetSlider.css'
+import './BetSlider.scss'
 
 function BetSlider(props) {
     const { player1money, player1bet, disabled, smallBlindAmount, betAmountChange, bet, player2bet } = props

@@ -1,5 +1,5 @@
 import React from 'react'
-import './Board.css'
+import './Board.scss'
 
 function Board(props) {
     const { flop1, flop2, flop3, turn, river, renderCard, determineSuit } = props

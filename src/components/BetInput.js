@@ -1,5 +1,5 @@
 import React from 'react'
-import './BetInput.css'
+import './BetInput.scss'
 
 function BetInput(props) {
     const { disabled, bigBlindAmount, bet, betAmountChange, player1money, player1bet, player2bet } = props

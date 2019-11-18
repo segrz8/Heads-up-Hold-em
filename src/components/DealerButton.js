@@ -1,5 +1,5 @@
 import React from 'react'
-import './DealerButton.css'
+import './DealerButton.scss'
 
 function DealerButton(props) {
     return (
