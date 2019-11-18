@@ -1,3 +1,12 @@
+### Project description
+
+Texas Hold'em No Limit (Poker) game for beginner players who want to learn the game without risking money. You play against computer algorithm. App is still being developed - new features are being added.
+
+Check out the game at:
+https://segrz8.github.io/Heads-up-Hold-em/
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
