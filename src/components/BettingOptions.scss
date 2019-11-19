@@ -1,3 +1,5 @@
+@import '../scss/Variables.scss';
+
 .bet {
     position: absolute;
     display: flex;
@@ -30,7 +32,7 @@
         border: solid 2px white;
         text-transform: uppercase;
         font-weight: bold;
-        background-color: rgb(168, 43, 43);
+        background-color: $buttonBackgroundColor;
 
         &:disabled {
             background-color: gray;

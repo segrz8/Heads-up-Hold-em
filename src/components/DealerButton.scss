@@ -10,14 +10,11 @@
     border-radius: 45%;
     font-weight: bold;
     box-shadow: inset -3px 1px rgba(47, 41, 41, 0.8);
-}
-
-.p1dealer {
     bottom: 25%;
-}
 
-.p2dealer {
-    top: 25%;
+    &--p2dealer {
+        bottom: calc(75% - 25px);
+    }
 }
 
 @media(min-width:730px) {

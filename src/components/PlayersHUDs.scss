@@ -1,88 +1,72 @@
-.player1 {
+@mixin playerHUD {
     position: absolute;
     width: 150px;
     height: 70px;
     left: 0;
     right: 0;
-    bottom: 0;
     margin-left: auto;
     margin-right: auto;
+}
+
+@mixin stack {
+    position: absolute;
+    background-color: white;
+    width: 50px;
+    height: 40px;
+    border: 3px solid black;
+    border-radius: 5px;
+    text-align: center;
+    background-color: rgb(223, 214, 189);
+    font-weight: bold;
+}
+
+@mixin card {
+    position: absolute;
+    width: 50px;
+    height: 70px;
+    top: 0;
+    border: 3px solid black;
+}
+
+.player1 {
+    bottom: 0;
+    @include playerHUD();
 
     &__stack1 {
-        position: absolute;
-        background-color: white;
-        width: 50px;
-        height: 40px;
         bottom: 0;
         left: 0;
-        border: 3px solid black;
-        border-radius: 5px;
-        text-align: center;
-        background-color: rgb(223, 214, 189);
-        font-weight: bold;
+        @include stack();
     }
 
     .card1 {
-        position: absolute;
-        background-color: white;
-        width: 50px;
-        height: 70px;
-        top: 0;
         right: 50px;
-        border: 3px solid black;
+        @include card();
     }
 
     .card2 {
-        position: absolute;
-        background-color: white;
-        width: 50px;
-        height: 70px;
-        top: 0;
         right: 0;
-        border: 3px solid black;
+        @include card();
     }
 }
 
 .player2 {
-    position: absolute;
-    width: 150px;
-    height: 70px;
-    left: 0;
-    right: 0;
     top: 0;
-    margin-left: auto;
-    margin-right: auto;
+    @include playerHUD();
 
     &__stack2 {
-        position: absolute;
-        background-color: white;
-        width: 50px;
-        height: 40px;
         top: 0;
         right: 0;
-        border: 3px solid black;
-        border-radius: 5px;
-        text-align: center;
-        background-color: rgb(223, 214, 189);
-        font-weight: bold;
+        @include stack();
     }
 
     .card1 {
-        position: absolute;
-        width: 50px;
-        height: 70px;
-        top: 0;
         left: 0;
-        border: 3px solid black;
+        @include card();
     }
 
     .card2 {
-        position: absolute;
-        width: 50px;
-        height: 70px;
-        top: 0;
         left: 50px;
-        border: 3px solid black;
+        @include card();
     }
 
     &__cardBack {

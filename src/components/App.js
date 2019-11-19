@@ -1290,23 +1290,23 @@ class App extends React.Component {
 	animateBetRaiseChips = (whichPlayer) => {
 		if (whichPlayer === 'p1') {
 			const bet = document.querySelector('.money__player1chips');
-			bet.classList.add('player1chipsInTheMiddle');
+			bet.classList.add('money__player1chips--player1chipsInTheMiddle');
 		} else if (whichPlayer === 'p2') {
 			const bet = document.querySelector('.money__player2chips');
-			bet.classList.add('player2chipsInTheMiddle');
+			bet.classList.add('money__player2chips--player2chipsInTheMiddle');
 		}
 	}
 
 	animateCallChips = (action) => {
 		const bet1 = document.querySelector('.money__player1chips');
 		const bet2 = document.querySelector('.money__player2chips');
-		bet1.classList.remove('player1chipsInTheMiddle');
-		bet2.classList.remove('player2chipsInTheMiddle');
+		bet1.classList.remove('money__player1chips--player1chipsInTheMiddle');
+		bet2.classList.remove('money__player2chips--player2chipsInTheMiddle');
 
 		const pot = document.querySelector('.money__potChips');
 		if (action === 'fold') {
-			pot.classList.remove('potChipsOnTheTable');
-		} else pot.classList.add('potChipsOnTheTable');
+			pot.classList.remove('money__potChips--potChipsOnTheTable');
+		} else pot.classList.add('money__potChips--potChipsOnTheTable');
 	}
 
 	determineSuit = (card) => {

@@ -1,3 +1,19 @@
+@mixin playerBet {
+    position: absolute;
+    left: 55vw;
+    width: 100px;
+}
+
+@mixin playerChips {
+    position: absolute;
+    left: 40vw;
+    width: 10px;
+    height: 10px;
+    transition: .6s;
+    color: gold;
+    font-size: 26px;
+}
+
 .money {
     position: absolute;
     color: white;
@@ -18,60 +34,42 @@
         transition: .6s;
         color: gold;
         font-size: 26px;
+
+        &--potChipsOnTheTable {
+            top: 110px;
+            left: 50px;
+        }
     }
 
     &__player1bet {
-        position: absolute;
         top: 55vh;
-        left: 55vw;
-        width: 100px;
+        @include playerBet();
     }
 
     &__player2bet {
-        position: absolute;
         top: 20vh;
-        left: 55vw;
-        width: 100px;
+        @include playerBet();
     }
 
     &__player1chips {
-        position: absolute;
         top: 150vh;
-        left: 40vw;
-        width: 10px;
-        height: 10px;
-        transition: .6s;
-        color: gold;
-        font-size: 26px;
+        @include playerChips();
+
+        &--player1chipsInTheMiddle {
+            top: 55vh;
+            left: 63vw;
+        }
     }
 
     &__player2chips {
-        position: absolute;
         top: -50vh;
-        left: 40vw;
-        width: 10px;
-        height: 10px;
-        transition: .6s;
-        color: gold;
-        font-size: 26px;
+        @include playerChips();
+
+        &--player2chipsInTheMiddle {
+            top: 20vh;
+            left: 63vw;
+        }
     }
-}
-
-.potChipsOnTheTable {
-    top: 110px;
-    left: 50px;
-    width: 10px;
-    height: 10px;
-}
-
-.player1chipsInTheMiddle {
-    top: 55vh;
-    left: 63vw;
-}
-
-.player2chipsInTheMiddle {
-    top: 20vh;
-    left: 63vw;
 }
 
 @media (min-width:730px) {

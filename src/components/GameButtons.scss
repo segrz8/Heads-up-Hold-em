@@ -1,3 +1,5 @@
+@import '../scss/Variables.scss';
+
 .gameButtons {
     position: absolute;
     bottom: 5px;
@@ -8,10 +10,10 @@
     &__btnStandard {
         height: 35px;
         width: 110px;
-        border: solid 2px rgb(255, 255, 255);
+        border: solid 2px white;
         text-transform: uppercase;
         font-weight: bold;
-        background-color: rgb(168, 43, 43);
+        background-color: $buttonBackgroundColor;
 
         &:disabled {
             background-color: gray;
