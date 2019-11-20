@@ -6,10 +6,8 @@
     flex: 1;
     border: solid 2px white;
     font-size: 16px;
-}
 
-@media (min-width:730px) {
-    .amount {
-        font-size: 16px;
+    @media (min-width:730px) {
+        font-size: 18px;
     }
 }

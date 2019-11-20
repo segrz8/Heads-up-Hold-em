@@ -6,16 +6,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
 
-@media(min-width:730px) {
-    .board {
-        display: flex;
-        position: absolute;
+    @media(min-width:730px) {
         width: 300px;
         height: 90px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
     }
 }

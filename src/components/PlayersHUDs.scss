@@ -10,7 +10,6 @@
 
 @mixin stack {
     position: absolute;
-    background-color: white;
     width: 50px;
     height: 40px;
     border: 3px solid black;
@@ -28,24 +27,57 @@
     border: 3px solid black;
 }
 
+@mixin stackMQ730 {
+    width: 60px;
+    height: 50px;
+    font-size: 20px;
+}
+
+@mixin playerHUD-MQ730 {
+    width: 180px;
+    height: 90px;
+}
+
+@mixin cardMQ730 {
+    width: 60px;
+    height: 90px;
+}
+
 .player1 {
     bottom: 0;
     @include playerHUD();
+
+    @media(min-width:730px) {
+        @include playerHUD-MQ730()
+    }
 
     &__stack1 {
         bottom: 0;
         left: 0;
         @include stack();
+
+        @media(min-width:730px) {
+            @include stackMQ730()
+        }
     }
 
     .card1 {
         right: 50px;
         @include card();
+
+        @media(min-width: 730px) {
+            @include cardMQ730();
+            left: 60px;
+        }
     }
 
     .card2 {
         right: 0;
         @include card();
+
+        @media(min-width: 730px) {
+            @include cardMQ730();
+        }
     }
 }
 
@@ -53,20 +85,37 @@
     top: 0;
     @include playerHUD();
 
+    @media(min-width:730px) {
+        @include playerHUD-MQ730()
+    }
+
     &__stack2 {
         top: 0;
         right: 0;
         @include stack();
+
+        @media(min-width:730px) {
+            @include stackMQ730()
+        }
     }
 
     .card1 {
         left: 0;
         @include card();
+
+        @media(min-width: 730px) {
+            @include cardMQ730();
+        }
     }
 
     .card2 {
         left: 50px;
         @include card();
+
+        @media(min-width: 730px) {
+            @include cardMQ730();
+            left: 60px;
+        }
     }
 
     &__cardBack {
@@ -76,59 +125,12 @@
         background-color: rgb(100, 27, 27);
         border: 3px solid black;
         flex-grow: 1;
-        max-width: 50px;
+        width: 50px;
     }
 }
 
 @media(min-width:730px) {
-
-    .player1,
-    .player2 {
-        width: 180px;
-        height: 90px;
-    }
-
-    .player1 .card1 {
-        width: 60px;
-        height: 90px;
-        left: 60px;
-    }
-
-    .player1 .card2 {
-        width: 60px;
-        height: 90px;
-    }
-
-    .player2 .card1 {
-        width: 60px;
-        height: 90px;
-    }
-
-    .player2 .card2 {
-        width: 60px;
-        height: 90px;
-        left: 60px;
-    }
-
-    .stack1 {
-        width: 60px;
-        height: 50px;
-        font-size: 20px;
-    }
-
-    .stack2 {
-        width: 60px;
-        height: 50px;
-        font-size: 20px;
-    }
-
     .suit {
-        /* background-image: url('../suitsImg/heart.png'); */
-        height: 28px;
-        background-repeat: no-repeat;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
         width: 50%;
     }
 }

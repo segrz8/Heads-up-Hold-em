@@ -8,16 +8,12 @@
     z-index: 1;
     background-color: black;
     padding: 5px;
-}
 
-@media (min-width:730px) {
-    .actionInfo {
+    @media (min-width:730px) {
         font-size: 30px;
     }
-}
 
-@media (min-width:1024px) {
-    .actionInfo {
+    @media (min-width:1024px) {
         font-size: 36px;
         top: 130px;
         left: 100px;

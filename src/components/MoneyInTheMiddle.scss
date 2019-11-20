@@ -12,17 +12,42 @@
     transition: .6s;
     color: gold;
     font-size: 26px;
+
+    @media(min-width: 730px) {
+        font-size: 30px;
+    }
 }
 
 .money {
     position: absolute;
     color: white;
 
+    @media (min-width:730px) {
+        font-size: 24px;
+    }
+
+    @media (min-width:1024px) {
+        width: 750px;
+        height: 450px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%)
+    }
+
     &__pot {
         position: absolute;
         top: 75px;
         left: 50px;
         width: 200px;
+
+        @media (min-width:730px) {
+            top: 95px;
+        }
+
+        @media (min-width:1024px) {
+            left: 320px;
+            top: 105px;
+        }
     }
 
     &__potChips {
@@ -38,17 +63,36 @@
         &--potChipsOnTheTable {
             top: 110px;
             left: 50px;
+
+            @media (min-width:730px) {
+                top: 150px;
+            }
+
+            @media (min-width:1024px) {
+                left: 450px;
+                top: 105px;
+            }
         }
     }
 
     &__player1bet {
         top: 55vh;
         @include playerBet();
+
+        @media (min-width:1024px) {
+            top: 280px;
+            left: 490px;
+        }
     }
 
     &__player2bet {
         top: 20vh;
         @include playerBet();
+
+        @media (min-width:1024px) {
+            top: 145px;
+            left: 490px;
+        }
     }
 
     &__player1chips {
@@ -58,6 +102,11 @@
         &--player1chipsInTheMiddle {
             top: 55vh;
             left: 63vw;
+
+            @media (min-width:1024px) {
+                top: 280px;
+                left: 570px;
+            }
         }
     }
 
@@ -68,67 +117,11 @@
         &--player2chipsInTheMiddle {
             top: 20vh;
             left: 63vw;
+
+            @media (min-width:1024px) {
+                top: 145px;
+                left: 570px;
+            }
         }
-    }
-}
-
-@media (min-width:730px) {
-    .money {
-        font-size: 24px;
-    }
-
-    i {
-        font-size: 30px;
-    }
-
-    .pot {
-        top: 95px;
-    }
-
-    .potChipsOnTheTable {
-        top: 150px;
-    }
-}
-
-@media (min-width:1024px) {
-
-    .player1bet {
-        top: 280px;
-        left: 490px;
-    }
-
-    .player2bet {
-        top: 145px;
-        left: 490px;
-    }
-
-    .player1chipsInTheMiddle {
-        top: 280px;
-        left: 570px;
-    }
-
-    .player2chipsInTheMiddle {
-        top: 145px;
-        left: 570px;
-    }
-
-    .pot {
-        position: absolute;
-        left: 320px;
-        top: 105px;
-    }
-
-    .potChipsOnTheTable {
-        position: absolute;
-        left: 450px;
-        top: 105px;
-    }
-
-    .money {
-        width: 750px;
-        height: 450px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%)
     }
 }

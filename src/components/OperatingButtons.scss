@@ -6,6 +6,17 @@
     right: 5px;
     z-index: 1;
 
+    @media (min-width:730px) {
+        width: 150px;
+    }
+
+    @media (min-width:1024px) {
+        position: absolute;
+        top: 130px;
+        right: 100px;
+        z-index: 1;
+    }
+
     &__btnStandard {
         height: 35px;
         width: 110px;
@@ -14,34 +25,19 @@
         font-weight: bold;
         background-color: $buttonBackgroundColor;
 
+        @media (min-width:730px) {
+            height: 45px;
+            width: 150px;
+        }
+
+        @media (min-width:1024px) {
+            height: 55px;
+            width: 150px;
+        }
+
         &:disabled {
             background-color: gray;
             color: black;
         }
-    }
-}
-
-@media (min-width:730px) {
-    .operatingButtons {
-        width: 150px;
-    }
-
-    .operatingButtons button {
-        height: 45px;
-        width: 150px;
-    }
-}
-
-@media (min-width:1024px) {
-    .operatingButtons {
-        position: absolute;
-        top: 130px;
-        right: 100px;
-        z-index: 1;
-    }
-
-    .operatingButtons button {
-        height: 55px;
-        width: 150px;
     }
 }

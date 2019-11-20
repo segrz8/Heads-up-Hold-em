@@ -28,6 +28,18 @@
         flex: 1;
     }
 
+    @media(min-width:730px) {
+        height: 95px;
+        width: 200px;
+    }
+
+    @media(min-width:1024px) {
+        height: 95px;
+        width: 200px;
+        bottom: 130px;
+        left: 100px;
+    }
+
     button {
         border: solid 2px white;
         text-transform: uppercase;
@@ -39,24 +51,4 @@
             color: black;
         }
     }
-}
-
-@media(min-width:730px) {
-    .bet {
-        height: 95px;
-        width: 200px;
-    }
-}
-
-@media(min-width:1024px) {
-    .bet {
-        height: 95px;
-        width: 200px;
-        bottom: 130px;
-        left: 100px;
-    }
-}
-
-h1 {
-    color: blanchedalmond;
 }

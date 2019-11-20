@@ -12,11 +12,9 @@
         height: 25px;
         background-color: rgb(36, 6, 6);
         border-radius: 5px;
-    }
-}
 
-@media(min-width:730px) {
-    .slider::-webkit-slider-thumb {
-        height: 32px;
+        @media(min-width:730px) {
+            height: 32px;
+        }
     }
 }

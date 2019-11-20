@@ -10,10 +10,8 @@
     border: 2px solid rgb(177, 55, 55);
     padding: 8px;
     text-transform: uppercase;
-}
 
-@media (min-width:1024px) {
-    .timer {
+    @media (min-width:1024px) {
         font-size: 32px;
         top: 130px;
         left: 100px;
